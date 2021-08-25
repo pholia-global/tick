@@ -7,7 +7,7 @@ const httpLink = createHttpLink({
 });
 
 async function fetchSession() {
-    const res = await axios.get("http://localhost:3000/api/session")
+    const res = await axios.get(`${process.env.BASE_URL}/api/session`)
     return res.data.session.idToken
 }
 
