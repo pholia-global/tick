@@ -25,7 +25,7 @@ export default function Home() {
   }, [router, user]) 
 
   return (
-      status===0 ? <Spinner /> :
+      status===0 ? <div><Spinner /></div> :
         <div className="h-full w-full">
           <Head>
             <title>Tick</title>

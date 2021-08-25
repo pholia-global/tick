@@ -1,8 +1,32 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import axios from 'axios';
+
+const httpLink = createHttpLink({
+    uri: 'https://tick-backend.hasura.app/v1/graphql',
+});
+
+async function fetchSession() {
+    const res = await axios.get("http://localhost:3000/api/session")
+    return res.data.session.idToken
+}
+
+const authLink = setContext((_, { headers }) => {
+    const authLinkWithHeader = fetchSession().then(token => {
+        return {
+            headers: {
+              ...headers,
+              authorization: token ? `Bearer ${token}` : "",
+            }
+        }
+    })
+
+    return authLinkWithHeader
+});
 
 const client = new ApolloClient({
-    uri: "https://countries.trevorblades.com",
-    cache: new InMemoryCache(),
-});
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache()
+  });
 
 export default client;

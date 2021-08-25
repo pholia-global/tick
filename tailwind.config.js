@@ -8,9 +8,20 @@ module.exports = {
       theme_blue: '#464660',
       theme_green: '#368B85',
       theme_eagle: '#B4B897',
-      theme_dawn_pink: '#F1E9E5',
+      theme_dawn_pink: {
+        light: '#F1E9E580',
+        DEFAULT: '#F1E9E5',
+      },
       white: colors.white,
-      black: colors.black,
+      black: {
+        forty_op: '#00000066',
+        fifty_op: '#00000080',
+        sixty_op: '#00000099',
+        DEFAULT: colors.black,
+      },
+      green: colors.green,
+      red: colors.red,
+      yellow: colors.yellow,
     },
     fontFamily: {
       primary: ['Montserrat', 'DejaVu Sans', 'Verdana', 'sans‑serif'],
