@@ -4,6 +4,10 @@ module.exports = {
   purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    gridTemplateColumns: {
+      'fill-40': 'repeat(auto-fill, 10rem)',
+      'fill-50': 'repeat(auto-fill, 20rem)',
+    },
     colors: {
       theme_blue: '#464660',
       theme_green: '#368B85',

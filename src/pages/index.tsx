@@ -11,21 +11,23 @@ export default function Home() {
 
   const [status, setStatus] = useState(0 as number)
   //0: Loading
-  //1: Loaded
+  //1: Idle
 
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const router = useRouter()
 
   useEffect(() => {
     if(user !== undefined) {
       router.push('/projects')
+    } else if (isLoading) {
+      setStatus(0)
     } else {
       setStatus(1)
     }
-  }, [router, user]) 
+  }, [router, user, isLoading]) 
 
   return (
-      status===0 ? <div><Spinner /></div> :
+      status===0 ? <div className="mx-auto my-8"><Spinner /></div> :
         <div className="h-full w-full">
           <Head>
             <title>Tick</title>
