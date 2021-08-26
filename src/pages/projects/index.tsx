@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useUser } from '@auth0/nextjs-auth0';
@@ -8,6 +7,7 @@ import { useRouter } from 'next/router'
 import ClientOnly from '@/components/utils/ClientOnly';
 //Components
 import ProjectCards from '@/components/ui/Cards/ProjectCards/ProjectCards';
+import LogoutButton from '@/components/navigation/LogoutButton/LogoutButton';
 
 const Projects = () => {
 
@@ -34,19 +34,7 @@ const Projects = () => {
                 </Head>
                 <div className="p-6 flex flex-col lg:px-24">
                     <div className="self-end">
-                        <Link href="/api/auth/logout">
-                            <a className="flex items-center font-bold text-lg text-black-sixty_op">
-                                <div className="flex items-center mr-2">
-                                    <Image
-                                        src={"/images/icons/logout2.png" as any}
-                                        layout="fixed"
-                                        height={14}
-                                        width={14}
-                                        alt="logout" />
-                                </ div>
-                                Logout
-                            </a>
-                        </Link>
+                        <LogoutButton />
                     </div>
                     <div className="flex flex-col items-center mt-4 mb-10">
                         <div className="h-24 w-24 mb-5">

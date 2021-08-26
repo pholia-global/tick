@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
       <ApolloProvider client={client}>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
       </ApolloProvider>
     </UserProvider>
   );

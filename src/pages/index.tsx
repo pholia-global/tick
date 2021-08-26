@@ -5,7 +5,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0';
 // Components
-import Spinner from '@/components/ui/Spinner/Spinner';
+import Spinner from '@/components/ui/Spinner/Spinner'
 
 export default function Home() {
 
@@ -38,7 +38,7 @@ export default function Home() {
             <div className="h-96 md:h-full md:w-2/4">
               <div className="home-background-image">
                 <Image 
-                  src={"/images/patterns/coral_texture-min.png" as any}
+                  src={"/images/patterns/coral_texture.svg" as any}
                   alt="Blue and green background pattern"
                   layout="fill"
                   objectFit="cover"
