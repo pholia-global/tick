@@ -6,10 +6,10 @@ type ProjectCardProps = {
     tags: string[],
     status: number
 }
-
+ 
 const ProjectCard = ({ name, description, tags, status }: ProjectCardProps) => {
     return (
-        <Link href={`/project?name=${name}`}>
+        <Link href={`/project/${name}`}>
             <a>
                 <div className="w-80 h-52 px-7 py-6 flex flex-col rounded-2xl bg-white border border-theme_dawn_pink md:h-full">
                     <div className="flex justify-between items-center mb-2">
