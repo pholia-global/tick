@@ -7,6 +7,7 @@ import Spinner from '@/components/ui/Spinner/Spinner'
 const GET_PROJECTS = gql`
     query GetProjects {
         projects(order_by: {status: asc}) {
+            id
             name
             description
             tags
@@ -16,6 +17,7 @@ const GET_PROJECTS = gql`
 `;
 
 type ProjectCardProps = {
+    id: string,
     name: string,
     description: string,
     tags: string[],

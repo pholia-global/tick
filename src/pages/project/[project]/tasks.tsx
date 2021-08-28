@@ -1,7 +1,7 @@
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout"
 
-const Features = () => {
+const Tasks = () => {
     return (
         <div>
             <ProjectLayout title="Features"> 
@@ -12,4 +12,4 @@ const Features = () => {
     )
 }
 
-export default Features
+export default Tasks

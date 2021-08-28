@@ -14,17 +14,18 @@ type NavigationItemProps = {
 const NavigationItem = ({ icon, target, text }: NavigationItemProps) => {
     const router = useRouter();
 
-    console.log(router.pathname === target.pathname)
+    const isActive = router.pathname === target.pathname
 
     return(
         <Link href={target}>
-            <a className={`flex px-12 py-4 ${router.pathname === target.pathname ? "bg-theme_dawn_pink rounded-lg" : "opacity-60"}`}>
+            <a className={`flex items-center mb-1 px-12 py-4 ${isActive ? "bg-theme_dawn_pink-light rounded-lg" : "opacity-60"}`}>
                 <Image 
                     src={icon} 
                     alt={text}
+                    layout="fixed"
                     width={25}
                     height={25} />
-                <div className="ml-4">
+                <div className={`ml-4 font-extrabold`}>
                     {text}
                 </div>
             </a>

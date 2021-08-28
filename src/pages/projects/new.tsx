@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { gql, useMutation } from '@apollo/client';
 import Head from "next/head"
-import router, { useRouter } from 'next/router'
+import router from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0';
 // Components
 import LogoutButton from "@/components/navigation/LogoutButton/LogoutButton"
@@ -28,7 +28,7 @@ const NewProject = () => {
     const [projectTags, setProjectTags] = useState([] as string[])
     const [tagBuffer, setTagBuffer] = useState("" as string)
 
-    const [createProject, { data, error }] = useMutation(CREATE_PROJECT)
+    const [createProject, { data }] = useMutation(CREATE_PROJECT)
 
     useEffect(() => {
         if(data) {
