@@ -5,6 +5,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     gridTemplateColumns: {
+      'perc-50-2': '50% 1fr',
       'sidebar-15': '15rem 1fr',
       'fill-40': 'repeat(auto-fill, 10rem)',
       'fill-50': 'repeat(auto-fill, 20rem)',

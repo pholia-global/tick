@@ -18,14 +18,14 @@ const NavigationItem = ({ icon, target, text }: NavigationItemProps) => {
 
     return(
         <Link href={target}>
-            <a className={`flex items-center mb-1 px-12 py-4 ${isActive ? "bg-theme_dawn_pink-light rounded-lg" : "opacity-60"}`}>
+            <a className={`flex items-center mb-3 px-12 py-3 ${isActive ? "bg-theme_dawn_pink-light rounded-lg" : "opacity-60"}`}>
                 <Image 
                     src={icon} 
                     alt={text}
                     layout="fixed"
                     width={25}
                     height={25} />
-                <div className={`ml-4 font-extrabold`}>
+                <div className={`ml-4 font-bold`}>
                     {text}
                 </div>
             </a>

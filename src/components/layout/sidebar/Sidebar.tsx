@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Image from "next/image"
-import Link from "next/link"
 // Components
 import NavigationItems from "@/components/navigation/navigationItems/NavigationItems"
 import Avatar from "../../ui/avatar/Avatar"
@@ -22,7 +21,7 @@ const Sidebar = () => {
                     tick
                 </div> 
             </div>
-            <div className={`${isSidebarOpen ? "flex flex-col justify-between" : "hidden md:flex"} absolute w-full min-h-screen flex flex-col px-4 py-5 bg-white items-center md:relative md:w-60`}>
+            <div className={`${isSidebarOpen ? "flex flex-col justify-between" : "hidden md:flex"} absolute w-full min-h-screen h-full flex flex-col px-4 py-5 bg-white items-center md:relative md:w-60`}>
                 <button 
                     onClick={() => setIsSidebarOpen(false)}
                     className={`${isSidebarOpen ? "flex md:hidden" : "hidden"} absolute top-4 right-4`}>
@@ -31,21 +30,6 @@ const Sidebar = () => {
                 <div>
                     <Avatar />
                     <NavigationItems />
-                </div>
-                <div className="md:mt-auto">
-                    <Link href="/api/auth/logout">
-                        <a className="flex px-12 py-4 font-bold text-md opacity-60">
-                            <Image
-                                src={"/images/icons/logout3.png" as any}
-                                layout="fixed"
-                                height={25} 
-                                width={25}
-                                alt="logout" />
-                            <div className={`ml-4 font-extrabold`}>
-                                {"Logout"}
-                            </div>
-                        </a>
-                    </Link>
                 </div>
             </div>
         </div>

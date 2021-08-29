@@ -32,7 +32,7 @@ const ButtonDropDown = ({
                 className={buttonClassName ?? ""}>
                 {buttonLabel}
             </button>
-            <div className={`${(!isOpen) ? "hidden" : "flex"} absolute ${optionsContainerClassName ?? "mt-1 flex-col rounded border bg-white"}`}>
+            <div className={`${(!isOpen) ? "hidden" : "flex"} absolute ${optionsContainerClassName ?? "mt-1 flex-col rounded bg-white shadow-md"}`}>
                 {
                     options.map((option, index) => {
                         return(

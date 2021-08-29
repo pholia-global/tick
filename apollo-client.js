@@ -8,7 +8,6 @@ const httpLink = createHttpLink({
 
 async function fetchSession() {
     const res = await axios.get(`/api/session`)
-    console.log(res.data.session)
     return res.data.session.idToken
 }
 
