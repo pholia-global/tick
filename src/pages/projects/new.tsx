@@ -13,6 +13,7 @@ const CREATE_PROJECT = gql`
         insert_projects(objects: {name: $name, owner_github_id: $owner_github_id, tags: $tags, description: $description}) {
             affected_rows
             returning {
+                id
                 name
             }
         }
@@ -35,7 +36,7 @@ const NewProject = () => {
             toast('Redirecting...', {
                 icon: '🚀',
             });
-            router.push(`/project?name=${data?.insert_projects?.returning[0]?.name ?? ""}`)
+            router.push(`/project/${data?.insert_projects?.returning[0]?.id ?? ""}`)
         }
     }, [data])
 
