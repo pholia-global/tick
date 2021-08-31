@@ -41,7 +41,7 @@ const NewProject = () => {
     }, [data])
 
     return (
-        <div className="w-full min-h-screen bg-theme_dawn_pink">
+        <div className="w-full min-h-screen bg-theme_dawn_pink-light">
             <Head>
                 <title>Create Project</title>
                 <meta name="description" content="Create Project on tick" />
@@ -77,7 +77,7 @@ const NewProject = () => {
                     className="w-full flex flex-col items-center">
                     <div className="w-full bg-white-900 rounded-md mb-4 md:w-96">
                         <input 
-                            className="w-full h-full p-5 rounded-md border-0 bg-transparent"
+                            className="w-full h-full p-5 rounded-md border border-theme_dawn_pink bg-transparent"
                             type="text"
                             placeholder="name"
                             onChange={(e) => setProjectName(e.target.value)}
@@ -85,7 +85,7 @@ const NewProject = () => {
                     </div>
                     <div className="w-full bg-white-900 rounded-md mb-4 md:w-96">
                         <input 
-                            className="w-full h-full p-5 rounded-md border-0 bg-transparent"
+                            className="w-full h-full p-5 rounded-md border border-theme_dawn_pink bg-transparent"
                             type="text"
                             placeholder="description"
                             onChange={(e) => setProjectDescription(e.target.value)}
@@ -113,7 +113,7 @@ const NewProject = () => {
                             }
                         </div>
                         <input 
-                            className="w-full h-full p-5 rounded-md border-0 bg-transparent"
+                            className="w-full h-full p-5 rounded-md border border-theme_dawn_pink bg-transparent"
                             type="text"
                             placeholder="tags"
                             value={tagBuffer}

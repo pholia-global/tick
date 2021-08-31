@@ -7,7 +7,7 @@ type SummaryBoxType = {
 
 const SummaryBox = ({boxName, infoPoints, callbackLabel, callback}: SummaryBoxType) => {
     return (
-        <div className="flex flex-col w-full p-7 bg-white rounded-lg">
+        <div className="flex flex-col w-full p-7 bg-white rounded">
             <div className="flex justify-between items-center mb-2">
                 <div className="font-black text-2xl">{boxName}</div>
                 <button 

@@ -45,7 +45,7 @@ const ProjectCards = () => {
                         }
                         <CreateProjectCard />
                     </div>
-                        : loading ? <div className="m-auto"><Spinner /></div>
+                        : loading ? <div className="m-auto"><Spinner size={2}/></div>
                             : <div className="m-auto">Something went wrong :(</div>
             }
         </div>

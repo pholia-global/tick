@@ -27,7 +27,7 @@ export default function Home() {
   }, [router, user, isLoading]) 
 
   return (
-      status===0 ? <div className="mx-auto my-8"><Spinner /></div> :
+      status===0 ? <div className="mx-auto my-8"><Spinner size={3}/></div> :
         <div className="h-full w-full">
           <Head>
             <title>Tick</title>

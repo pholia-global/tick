@@ -18,7 +18,7 @@ const NavigationItem = ({ icon, target, text }: NavigationItemProps) => {
 
     return(
         <Link href={target}>
-            <a className={`flex items-center mb-3 px-12 py-3 ${isActive ? "bg-theme_dawn_pink-light rounded-lg" : "opacity-60"}`}>
+            <a className={`flex items-center mb-3 px-12 py-3 ${isActive ? "bg-theme_dawn_pink-light rounded" : "opacity-60"}`}>
                 <Image 
                     src={icon} 
                     alt={text}

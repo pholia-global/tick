@@ -9,6 +9,8 @@ import ProjectBasicData from '@/components/ui/data/ProjectBasicData';
 import ClientOnly from '@/components/utils/ClientOnly';
 import SummaryBox from '@/components/ui/data/SummaryBox';
 import TechStack from '@/components/ui/data/TechStack'
+import Modal from '@/components/ui/modal/Modal'
+import AddStackModal from '@/components/ui/modal/custom/addStackModal'
 // Types
 type StackType = {
     image_svg_url: string,
@@ -47,8 +49,12 @@ const GET_PROJECT = gql`
 
 const Project = () => {
 
+    // Datastore
     const [frontendStack, setFrontendStack] = useState([] as StackType[])
     const [backendStack, setbackendStack] = useState([] as StackType[])
+    // Modal Control
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [modalType, setModalType] = useState("frontend")
 
     const router = useRouter()
     const { project } = router.query
@@ -80,54 +86,65 @@ const Project = () => {
         }
     );
 
-    if(data) {
-        console.log(data)
-    }
-
-    console.log(frontendStack)
-    console.log(backendStack)
-
     return (
         <div>
-            <Toaster position="bottom-right" reverseOrder={false} />
-            <ProjectLayout title={data?.projects[0]?.name ?? "Project"}>
-                <div className="p-6 w-full min-h-screen md:p-8">
-                    {
-                        data ? 
-                            <ClientOnly>
-                                <div>
-                                    <div className="mb-6">
-                                        <ProjectBasicData
-                                            id={project as string}
-                                            name={data?.projects[0]?.name}
-                                            status={data?.projects[0]?.status}
-                                            description={data?.projects[0]?.description} 
-                                            />
-                                    </div>
-                                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-perc-50-2 mb-4">
-                                        <SummaryBox 
-                                            boxName="Features"
-                                            infoPoints={data?.projects[0]?.features}
-                                            callbackLabel="manage"
-                                            callback={() => {}}
-                                        />
-                                        <SummaryBox 
-                                            boxName="Stages"
-                                            infoPoints={data?.projects[0]?.stages}
-                                            callbackLabel="manage"
-                                            callback={() => {}}
-                                        />
-                                    </div>
+            <ClientOnly>
+                <Toaster position="bottom-right" reverseOrder={false} />
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <AddStackModal 
+                        type={modalType} 
+                        frontendStack={frontendStack} 
+                        backendStack={backendStack}
+                        onClose={() => setIsModalOpen(false)}/>
+                </Modal>
+                <ProjectLayout title={data?.projects[0]?.name ?? "Project"}>
+                    <div className="p-6 w-full min-h-screen md:p-8">
+                        {
+                            data ? 
+                                
                                     <div>
-                                        <TechStack frontendStack={frontendStack} backendStack={backendStack} />
+                                        <div className="mb-6">
+                                            <ProjectBasicData
+                                                id={project as string}
+                                                name={data?.projects[0]?.name}
+                                                status={data?.projects[0]?.status}
+                                                description={data?.projects[0]?.description} 
+                                                />
+                                        </div>
+                                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-perc-50-2 mb-4">
+                                            <SummaryBox 
+                                                boxName="Features"
+                                                infoPoints={data?.projects[0]?.features}
+                                                callbackLabel="manage"
+                                                callback={() => router.push(`/project/${project}/features`)}
+                                            />
+                                            <SummaryBox 
+                                                boxName="Stages"
+                                                infoPoints={data?.projects[0]?.stages}
+                                                callbackLabel="manage"
+                                                callback={() => router.push(`/project/${project}/stages`)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <TechStack 
+                                                frontendStack={frontendStack} 
+                                                backendStack={backendStack}
+                                                addFrontend={() => {
+                                                    setModalType("frontend")
+                                                    setIsModalOpen(true)
+                                                }}
+                                                addBackend={() => {
+                                                    setModalType("backend")
+                                                    setIsModalOpen(true)
+                                                }} />
+                                        </div>
                                     </div>
-                                </div>
-                            </ClientOnly>    
-                                : loading ? <div className="m-auto"><Spinner /></div>
-                                    : <div className="m-auto">Something went wrong :(</div>
-                    }
-                </div>
-            </ProjectLayout>
+                                    : loading ? <div className="m-auto"><Spinner size={2}/></div>
+                                        : <div className="m-auto">Something went wrong :(</div>
+                        }
+                    </div>
+                </ProjectLayout>
+            </ClientOnly>
         </div>
         
     )
