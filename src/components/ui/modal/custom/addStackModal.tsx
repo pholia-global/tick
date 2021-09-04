@@ -1,25 +1,31 @@
 import { useReducer } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { useEffect } from 'react';
+// Components
 import Spinner from '../../Spinner/Spinner';
+import toast from "react-hot-toast";
 // Reducers
 import ArrayReducer from 'src/context/reducers/arrayReducer'
 // Types
 type StackType = {
+    id: string,
     image_svg_url: string,
-    name: string
+    name: string,
+    type: string
 }
 
 type AddStackModalProps = {
     type: string,
     frontendStack?: StackType[],
     backendStack?: StackType[],
+    project: string,
     onClose: () => void
 }
 // Query
 const GET_STACKS = gql`
     query GetStacks($type: String!) {
         technologies(where: {type: {_eq: $type}}) {
+            id
             image_svg_url
             name
         }
@@ -27,40 +33,49 @@ const GET_STACKS = gql`
 `
 
 const RESET_STACK = gql`
-    mutation ResetStack($project_id: String!) {
-        delete_project_technology(where: {project_id: {_eq: $project_id}}) {
+    mutation ResetStack($project_id: bigint!, $type: String!) {
+        delete_project_technology(where: {project_id: {_eq: $project_id}, technology: {type: {_eq: $type}}}) {
             affected_rows
         }
     }
 `
+
+// const INSERT_STACK = gql`
+//     mutation InsertStack($project_id: bigint!, $technology_id: String!) {
+//         insert_project_technology(objects: {project_id: $project_id, technology_id: $technology_id}) {
+//             affected_rows
+//         }
+//     }
+// `
 
 const INSERT_STACK = gql`
-    mutation InsertStack($project_id: String!, $technology_id: String!) {
-        insert_project_technology(objects: {project_id: $project_id, technology_id: $technology_id}) {
+    mutation InsertStack($stack: [project_technology_insert_input!]!) {
+        insert_project_technology(objects: $stack) {
             affected_rows
         }
     }
 `
 
-const AddStackModal = ({ type, frontendStack, backendStack, onClose }: AddStackModalProps) => {
+const AddStackModal = ({ type, frontendStack, backendStack, project, onClose }: AddStackModalProps) => {
     const [state, dispatch] = useReducer(ArrayReducer, { dataList: [] as StackType[] })
 
     const [loadStacks, { called, loading, data }] = useLazyQuery(
         GET_STACKS,
         { variables: { type: type } }
     );
+    const [resetStack] = useMutation(RESET_STACK)
+    const [confirmStack] = useMutation(INSERT_STACK, {
+        onCompleted: (() => onClose())
+    })
 
     useEffect(() => {
         if( type === 'frontend' && (frontendStack?.length !== 0) && (state.dataList.length === 0)) {
             dispatch({ type: 'SET', payload: frontendStack})
-            if(!called) {
-                loadStacks()
-            }
         } else if ( type === 'backend' && (backendStack?.length !== 0) && (state.dataList.length === 0)) {
             dispatch({ type: 'SET', payload: backendStack })
-            if(!called) {
-                loadStacks()
-            }
+        }
+        if(!called) {
+            loadStacks()
         }
     }, [called, frontendStack, type, backendStack, state.dataList, loadStacks])
 
@@ -90,6 +105,30 @@ const AddStackModal = ({ type, frontendStack, backendStack, onClose }: AddStackM
         }
     }
 
+    const handleStackConfirm = () => {
+        toast.promise(
+            resetStack({
+                variables: { "project_id": (parseInt(project)), "type": type }
+            }).then(() => {
+                const newList = state.dataList.map((tech: any, index: number) => {
+                    return {
+                        project_id: project,
+                        technology_id: tech.id
+                    }
+                })
+                confirmStack({
+                    variables: { "stack": newList }
+                })
+                
+            }), 
+            {
+                loading: 'Updating Stack...',
+                success: <b>Stack Updated!</b>,
+                error: <b>Error! Stack Updation failed</b>,
+            }
+        )
+    }
+
     const abortStackAddition = () => {
         if( type === 'frontend') {
             dispatch({ type: 'SET', payload: frontendStack})
@@ -98,6 +137,8 @@ const AddStackModal = ({ type, frontendStack, backendStack, onClose }: AddStackM
         }
         onClose()
     }
+
+    console.log(type)
 
     return (
         <div className="bg-white overflow-hidden p-5 rounded">
@@ -126,7 +167,7 @@ const AddStackModal = ({ type, frontendStack, backendStack, onClose }: AddStackM
                     Cancel
                 </button>
                 <button 
-
+                    onClick={handleStackConfirm}    
                     className="py-3 bg-theme_blue text-white rounded">
                     Confirm
                 </button>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router'
 // Components
@@ -13,6 +13,7 @@ import Modal from '@/components/ui/modal/Modal'
 import AddStackModal from '@/components/ui/modal/custom/addStackModal'
 // Types
 type StackType = {
+    id: string,
     image_svg_url: string,
     name: string,
     type: string
@@ -38,6 +39,7 @@ const GET_PROJECT = gql`
             }
             project_technologies {
                 technology {
+                  id  
                   name
                   image_svg_url
                   type
@@ -59,23 +61,10 @@ const Project = () => {
     const router = useRouter()
     const { project } = router.query
 
-    const { data, loading } = useQuery(
+    const { data, loading, refetch } = useQuery(
         GET_PROJECT,
         { 
             variables: { id: project },
-            onCompleted: (dat) => {
-                let frontBuffer: StackType[] = []
-                let backBuffer: StackType[] = []
-                dat?.projects[0]?.project_technologies?.map((tech: any) => {
-                    if(tech?.technology?.type==='frontend') {
-                        frontBuffer.push(tech?.technology)
-                    } else {
-                        backBuffer.push(tech?.technology)
-                    }
-                })
-                setFrontendStack(frontBuffer)
-                setbackendStack(backBuffer)
-            },
             onError: (error) => {
                 toast.error("Redirecting...")
                 console.log(error?.message)
@@ -86,6 +75,22 @@ const Project = () => {
         }
     );
 
+    useEffect(() => {
+        if(data) {
+            let frontBuffer: StackType[] = []
+            let backBuffer: StackType[] = []
+            data?.projects[0]?.project_technologies?.map((tech: any) => {
+                if(tech?.technology?.type==='frontend') {
+                    frontBuffer.push(tech?.technology)
+                } else {
+                    backBuffer.push(tech?.technology)
+                }
+            })
+            setFrontendStack(frontBuffer)
+            setbackendStack(backBuffer)
+        }
+    }, [data])
+
     return (
         <div>
             <ClientOnly>
@@ -95,7 +100,11 @@ const Project = () => {
                         type={modalType} 
                         frontendStack={frontendStack} 
                         backendStack={backendStack}
-                        onClose={() => setIsModalOpen(false)}/>
+                        project={data?.projects[0]?.plain_id as string}
+                        onClose={() => {
+                            setIsModalOpen(false)
+                            refetch()
+                        }}/>
                 </Modal>
                 <ProjectLayout title={data?.projects[0]?.name ?? "Project"}>
                     <div className="p-6 w-full min-h-screen md:p-8">
