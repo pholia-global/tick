@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useReducer } from "react"
 import { gql, useMutation } from '@apollo/client';
 import Head from "next/head"
 import router from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0';
+// Reducers
+import ArrayReducer from 'src/context/reducers/arrayReducer'
 // Components
 import LogoutButton from "@/components/navigation/LogoutButton/LogoutButton"
 import BackButton from "@/components/navigation/BackButton/BackButton"
@@ -26,7 +28,7 @@ const NewProject = () => {
 
     const [projectName, setProjectName] = useState("" as string)
     const [projectDescription, setProjectDescription] = useState("" as string)
-    const [projectTags, setProjectTags] = useState([] as string[])
+    const [state, dispatch] = useReducer(ArrayReducer, { dataList: [] as string[] })
     const [tagBuffer, setTagBuffer] = useState("" as string)
 
     const [createProject, { data }] = useMutation(CREATE_PROJECT)
@@ -63,7 +65,7 @@ const NewProject = () => {
                                 variables: {
                                     name: projectName,
                                     description: projectDescription,
-                                    tags: projectTags,
+                                    tags: state.dataList,
                                     owner_github_id: user?.sub
                                 }
                             }), {
@@ -75,17 +77,17 @@ const NewProject = () => {
                         }
                     }}
                     className="w-full flex flex-col items-center">
-                    <div className="w-full bg-white-900 rounded-md mb-4 md:w-96">
+                    <div className="w-full bg-white-900 rounded-md mb-2 md:w-96">
                         <input 
-                            className="w-full h-full p-5 rounded-md border border-theme_dawn_pink bg-transparent"
+                            className="w-full h-full p-3 rounded-md border border-theme_dawn_pink bg-transparent"
                             type="text"
                             placeholder="name"
                             onChange={(e) => setProjectName(e.target.value)}
                             required />
                     </div>
-                    <div className="w-full bg-white-900 rounded-md mb-4 md:w-96">
+                    <div className="w-full bg-white-900 rounded-md mb-2 md:w-96">
                         <input 
-                            className="w-full h-full p-5 rounded-md border border-theme_dawn_pink bg-transparent"
+                            className="w-full h-full p-3 rounded-md border border-theme_dawn_pink bg-transparent"
                             type="text"
                             placeholder="description"
                             onChange={(e) => setProjectDescription(e.target.value)}
@@ -94,18 +96,16 @@ const NewProject = () => {
                     <div className="flex flex-col w-full bg-white-900 rounded-md mb-4 md:w-96">
                         <div className="flex flex-wrap">
                             {
-                                projectTags.map((tag: string, index: number) => {
+                                state.dataList.map((tag: unknown, index: number) => {    
                                     return(
                                         <button 
                                             type="button"
                                             key={index}
                                             onClick={() => {
-                                                let tagArrayBuffer = [...projectTags]
-                                                tagArrayBuffer.splice(index, 1)
-                                                setProjectTags(tagArrayBuffer)
+                                                dispatch({ type: 'POP', payload: tag, index: index })
                                             }}
                                             className="p-2 mr-2 mb-2 bg-theme_blue text-white rounded">
-                                                {tag}
+                                                {tag as string}
                                         </button>
                                     )
                                     
@@ -113,17 +113,15 @@ const NewProject = () => {
                             }
                         </div>
                         <input 
-                            className="w-full h-full p-5 rounded-md border border-theme_dawn_pink bg-transparent"
+                            className="w-full h-full p-3 rounded-md border border-theme_dawn_pink bg-transparent"
                             type="text"
                             placeholder="tags"
                             value={tagBuffer}
                             onKeyPress={event => {
                                 if (event.key === 'Enter') {
                                     event.preventDefault()
-                                    let tagArrayBuffer = [...projectTags]
-                                    if(!tagArrayBuffer.includes(tagBuffer)){
-                                        tagArrayBuffer.push(tagBuffer)
-                                        setProjectTags(tagArrayBuffer)
+                                    if(!state.dataList.includes(tagBuffer)){
+                                        dispatch({ type: 'PUSH', payload: tagBuffer })
                                         setTagBuffer("")
                                     } else {
                                         toast.error("tag already in list")
@@ -133,7 +131,7 @@ const NewProject = () => {
                             onChange={e => {
                                 setTagBuffer(e.target.value)
                             }}
-                            required={projectTags.length===0} />
+                            required={state.dataList.length===0} />
                     </div>
                     <input  type="submit" className="w-full py-4 px-8 mt-2 bg-theme_blue text-white rounded-md font-bold cursor-pointer md:w-52" />
                 </form>
