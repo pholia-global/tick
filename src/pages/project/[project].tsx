@@ -101,6 +101,7 @@ const Project = () => {
                         frontendStack={frontendStack} 
                         backendStack={backendStack}
                         project={data?.projects[0]?.plain_id as string}
+                        isModalOpen={isModalOpen}
                         onClose={() => {
                             setIsModalOpen(false)
                             refetch()

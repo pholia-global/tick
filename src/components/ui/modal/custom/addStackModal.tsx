@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { useEffect } from 'react';
 // Components
@@ -16,9 +16,10 @@ type StackType = {
 
 type AddStackModalProps = {
     type: string,
-    frontendStack?: StackType[],
-    backendStack?: StackType[],
+    frontendStack: StackType[],
+    backendStack: StackType[],
     project: string,
+    isModalOpen: boolean,
     onClose: () => void
 }
 // Query
@@ -56,7 +57,7 @@ const INSERT_STACK = gql`
     }
 `
 
-const AddStackModal = ({ type, frontendStack, backendStack, project, onClose }: AddStackModalProps) => {
+const AddStackModal = ({ type, frontendStack, backendStack, project, isModalOpen, onClose }: AddStackModalProps) => {
     const [state, dispatch] = useReducer(ArrayReducer, { dataList: [] as StackType[] })
 
     const [loadStacks, { called, loading, data }] = useLazyQuery(
@@ -69,9 +70,12 @@ const AddStackModal = ({ type, frontendStack, backendStack, project, onClose }: 
     })
 
     useEffect(() => {
-        if( type === 'frontend' && (frontendStack?.length !== 0) && (state.dataList.length === 0)) {
+        const firstEl = state?.dataList as StackType[];
+        if( type === 'frontend' && (firstEl[0]?.name !== frontendStack[0]?.name) ) {
+            console.log("frontend called")
             dispatch({ type: 'SET', payload: frontendStack})
-        } else if ( type === 'backend' && (backendStack?.length !== 0) && (state.dataList.length === 0)) {
+        } else if ( type === 'backend' && (firstEl[0]?.name !== backendStack[0]?.name) ) {
+            console.log("backend called")
             dispatch({ type: 'SET', payload: backendStack })
         }
         if(!called) {
@@ -138,7 +142,7 @@ const AddStackModal = ({ type, frontendStack, backendStack, project, onClose }: 
         onClose()
     }
 
-    console.log(type)
+    // console.log(state.dataList)
 
     return (
         <div className="bg-white overflow-hidden p-5 rounded">
