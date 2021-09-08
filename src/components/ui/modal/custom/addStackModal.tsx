@@ -71,12 +71,12 @@ const AddStackModal = ({ type, frontendStack, backendStack, project, isModalOpen
 
     useEffect(() => {
         const firstEl = state?.dataList as StackType[];
-        if( type === 'frontend' && (firstEl[0]?.name !== frontendStack[0]?.name) ) {
-            console.log("frontend called")
+        if( type === 'frontend' && (firstEl[0]?.type === 'backend') ) {
             dispatch({ type: 'SET', payload: frontendStack})
-        } else if ( type === 'backend' && (firstEl[0]?.name !== backendStack[0]?.name) ) {
-            console.log("backend called")
+        } else if ( type === 'backend' && (firstEl[0]?.type === 'frontend') ) {
             dispatch({ type: 'SET', payload: backendStack })
+        } else if( type === 'frontend' && (firstEl.length === 0) ) {
+            dispatch({ type: 'SET', payload: frontendStack})
         }
         if(!called) {
             loadStacks()
