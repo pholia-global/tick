@@ -1,27 +1,25 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const AppContext = createContext({
-    activeProject: "",
-    setActiveProject: (projectId: string) => {}
+  activeProject: "",
+  setActiveProject: (projectId: string) => {},
 });
 
 export function AppWrapper({ children }: any) {
-    const [activeProject, setActiveProj] = useState("" as string)
-    
-    const setActiveProject = (projectId: string) => {
-        setActiveProj(projectId)
-    }
+  const [activeProject, setActiveProj] = useState("" as string);
 
-    let sharedState = {
-        activeProject: activeProject,
-        setActiveProject: setActiveProject
-    }
+  const setActiveProject = (projectId: string) => {
+    setActiveProj(projectId);
+  };
 
-    return (
-        <AppContext.Provider value={sharedState}>
-            {children}
-        </AppContext.Provider>
-    );
+  let sharedState = {
+    activeProject: activeProject,
+    setActiveProject: setActiveProject,
+  };
+
+  return (
+    <AppContext.Provider value={sharedState}>{children}</AppContext.Provider>
+  );
 }
 
 export function useAppContext() {

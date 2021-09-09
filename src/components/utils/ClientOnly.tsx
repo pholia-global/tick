@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 type Props = {
-    children: any;
-    delegated?: any;
-}
+  children: any;
+  delegated?: any;
+};
 
 const ClientOnly: React.FC<Props> = ({ children, ...delegated }) => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -17,6 +17,6 @@ const ClientOnly: React.FC<Props> = ({ children, ...delegated }) => {
   }
 
   return <div {...delegated}>{children}</div>;
-}
+};
 
-export default ClientOnly
+export default ClientOnly;
