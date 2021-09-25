@@ -18,7 +18,8 @@
     "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json|ts|tsx)\"",
     "format": "yarn prettier --write",
     "check-format": "yarn prettier --list-different",
-    "validate": "yarn check-types && yarn check-format && yarn lint && yarn test && yarn e2e"
+    "validate": "yarn check-types && yarn check-format && yarn lint && yarn test && yarn e2e:headless",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.4.5",
