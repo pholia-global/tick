@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 // Components
-import Sidebar from "./sidebar/Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 // Context
 import { useAppContext } from "src/context/state";
 

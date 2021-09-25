@@ -7,7 +7,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 // Components
 import Spinner from "@/components/ui/Spinner/Spinner";
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const [status, setStatus] = useState(0 as number);
   //0: Loading
   //1: Idle

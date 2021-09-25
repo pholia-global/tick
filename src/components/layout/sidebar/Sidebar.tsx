@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 // Components
-import NavigationItems from "@/components/navigation/navigationItems/NavigationItems";
-import Avatar from "../../ui/avatar/Avatar";
+import NavigationItems from "@/components/navigation/NavigationItems/NavigationItems";
+import Avatar from "../../ui/Avatar/Avatar";
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false as boolean);

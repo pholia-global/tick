@@ -12,7 +12,7 @@ export function AppWrapper({ children }: any) {
     setActiveProj(projectId);
   };
 
-  let sharedState = {
+  const sharedState = {
     activeProject: activeProject,
     setActiveProject: setActiveProject,
   };

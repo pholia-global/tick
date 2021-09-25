@@ -3,6 +3,9 @@ module.exports = {
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   moduleNameMapper: {
     "\\.(scss|sass|css)$": "identity-obj-proxy",
+    "^@/components/(.*)$": ["<rootDir>/src/components/$1"],
+    "^@/context/(.*)$": ["<rootDir>/src/context/$1"],
   },
-  moduleDirectories: ["node_modules", "src"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
+  moduleDirectories: ["node_modules", "src", "<rootDir>"],
 };

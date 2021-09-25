@@ -1,4 +1,4 @@
-import Backdrop from "../backdrop/Backdrop";
+import Backdrop from "../Backdrop/Backdrop";
 //Types
 type ModalProps = {
   children: any;

@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import ProjectLayout from "@/components/layout/ProjectLayout";
 import toast, { Toaster } from "react-hot-toast";
 import Spinner from "@/components/ui/Spinner/Spinner";
-import ProjectBasicData from "@/components/ui/data/ProjectBasicData";
+import ProjectBasicData from "@/components/ui/Data/ProjectBasicData";
 import ClientOnly from "@/components/utils/ClientOnly";
-import SummaryBox from "@/components/ui/data/SummaryBox";
-import TechStack from "@/components/ui/data/TechStack";
-import Modal from "@/components/ui/modal/Modal";
-import AddStackModal from "@/components/ui/modal/custom/addStackModal";
+import SummaryBox from "@/components/ui/Data/SummaryBox";
+import TechStack from "@/components/ui/Data/TechStack";
+import Modal from "@/components/ui/Modal/Modal";
+import AddStackModal from "@/components/ui/Modal/Custom/AddStackModal";
 // Types
 type StackType = {
   id: string;
@@ -49,7 +49,7 @@ const GET_PROJECT = gql`
   }
 `;
 
-const Project = () => {
+const Project = (): JSX.Element => {
   // Datastore
   const [frontendStack, setFrontendStack] = useState([] as StackType[]);
   const [backendStack, setbackendStack] = useState([] as StackType[]);

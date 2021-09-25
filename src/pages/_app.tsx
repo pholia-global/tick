@@ -5,7 +5,7 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import client from "../../apollo-client";
 import { AppWrapper } from "src/context/state";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <UserProvider>
       <ApolloProvider client={client}>

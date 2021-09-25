@@ -1,5 +1,5 @@
 // Components
-import NavigationItem from "./navigationItem/NavigationItem";
+import NavigationItem from "./NavigationItem/NavigationItem";
 // Context
 import { useAppContext } from "src/context/state";
 

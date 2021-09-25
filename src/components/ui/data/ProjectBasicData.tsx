@@ -3,7 +3,7 @@ import { useState } from "react";
 // Constants
 import { STATUS } from "src/constants/enums";
 // Components
-import ButtonDropDown from "../dropDown/ButtonDropDown";
+import ButtonDropDown from "../DropDown/ButtonDropDown";
 // Queries
 const UPDATE_STATUS = gql`
   mutation UpdateStatus($id: uuid!, $status: Int!) {
