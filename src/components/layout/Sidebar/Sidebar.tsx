@@ -4,7 +4,7 @@ import Image from "next/image";
 import NavigationItems from "@/components/navigation/NavigationItems/NavigationItems";
 import Avatar from "../../ui/Avatar/Avatar";
 
-const Sidebar = () => {
+const Sidebar = (): JSX.Element => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false as boolean);
 
   return (

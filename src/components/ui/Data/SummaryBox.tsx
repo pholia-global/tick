@@ -1,6 +1,11 @@
+type InfoPoint = {
+  name: string;
+  status?: string;
+};
+
 type SummaryBoxType = {
   boxName: string;
-  infoPoints: string[];
+  infoPoints: InfoPoint[];
   callbackLabel: string;
   callback: () => void;
 };
@@ -10,7 +15,7 @@ const SummaryBox = ({
   infoPoints,
   callbackLabel,
   callback,
-}: SummaryBoxType) => {
+}: SummaryBoxType): JSX.Element => {
   return (
     <div className="flex flex-col w-full p-7 bg-white rounded">
       <div className="flex justify-between items-center mb-2">
@@ -23,7 +28,7 @@ const SummaryBox = ({
         </button>
       </div>
       <div className="font-light">
-        {infoPoints.map((info: any, index: number) => {
+        {infoPoints.map((info: InfoPoint, index: number) => {
           return (
             <li className="mb-1" key={index}>
               {info?.name}

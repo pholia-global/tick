@@ -9,14 +9,26 @@ import ProjectBasicData from "@/components/ui/Data/ProjectBasicData";
 import ClientOnly from "@/components/utils/ClientOnly";
 import SummaryBox from "@/components/ui/Data/SummaryBox";
 import TechStack from "@/components/ui/Data/TechStack";
-import Modal from "@/components/ui/Modal/Modal";
-import AddStackModal from "@/components/ui/Modal/Custom/AddStackModal";
 // Types
 type StackType = {
   id: string;
   image_svg_url: string;
   name: string;
   type: string;
+};
+
+type Technology = {
+  id: string;
+  name: string;
+  image_svg_url: string;
+  type: string;
+};
+
+type ProjectTechnologyType = {
+  id: string;
+  project_id: string;
+  technology_id: string;
+  technology: Technology;
 };
 // Query
 const GET_PROJECT = gql`
@@ -53,9 +65,6 @@ const Project = (): JSX.Element => {
   // Datastore
   const [frontendStack, setFrontendStack] = useState([] as StackType[]);
   const [backendStack, setbackendStack] = useState([] as StackType[]);
-  // Modal Control
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("frontend");
 
   const router = useRouter();
   const { project } = router.query;
@@ -71,17 +80,23 @@ const Project = (): JSX.Element => {
     },
   });
 
+  const updateTechStack = () => {
+    refetch();
+  };
+
   useEffect(() => {
     if (data) {
       const frontBuffer: StackType[] = [];
       const backBuffer: StackType[] = [];
-      data?.projects[0]?.project_technologies?.map((tech: any) => {
-        if (tech?.technology?.type === "frontend") {
-          frontBuffer.push(tech?.technology);
-        } else {
-          backBuffer.push(tech?.technology);
+      data?.projects[0]?.project_technologies?.map(
+        (tech: ProjectTechnologyType) => {
+          if (tech?.technology?.type === "frontend") {
+            frontBuffer.push(tech?.technology);
+          } else {
+            backBuffer.push(tech?.technology);
+          }
         }
-      });
+      );
       setFrontendStack(frontBuffer);
       setbackendStack(backBuffer);
     }
@@ -91,19 +106,6 @@ const Project = (): JSX.Element => {
     <div>
       <ClientOnly>
         <Toaster position="bottom-right" reverseOrder={false} />
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <AddStackModal
-            type={modalType}
-            frontendStack={frontendStack}
-            backendStack={backendStack}
-            project={data?.projects[0]?.plain_id as string}
-            isModalOpen={isModalOpen}
-            onClose={() => {
-              setIsModalOpen(false);
-              refetch();
-            }}
-          />
-        </Modal>
         <ProjectLayout title={data?.projects[0]?.name ?? "Project"}>
           <div className="p-6 w-full min-h-screen md:p-8">
             {data ? (
@@ -134,14 +136,8 @@ const Project = (): JSX.Element => {
                   <TechStack
                     frontendStack={frontendStack}
                     backendStack={backendStack}
-                    addFrontend={() => {
-                      setModalType("frontend");
-                      setIsModalOpen(true);
-                    }}
-                    addBackend={() => {
-                      setModalType("backend");
-                      setIsModalOpen(true);
-                    }}
+                    project={data?.projects[0]?.plain_id as string}
+                    update={updateTechStack}
                   />
                 </div>
               </div>

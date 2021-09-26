@@ -16,7 +16,7 @@ const ProjectCard = ({
   description,
   tags,
   status,
-}: ProjectCardProps) => {
+}: ProjectCardProps): JSX.Element => {
   return (
     <Link href={`/project/${id}`}>
       <a>

@@ -3,11 +3,13 @@ import Head from "next/head";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
-//HOC
+// HOC
 import ClientOnly from "@/components/utils/ClientOnly";
-//Components
+// Components
 import ProjectCards from "@/components/ui/Cards/ProjectCards/ProjectCards";
 import LogoutButton from "@/components/navigation/LogoutButton/LogoutButton";
+// Images
+import GenericPlaceholderImage from "@/images/placeholders/generic_placeholder.png";
 
 const Projects = (): JSX.Element => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,10 +40,7 @@ const Projects = (): JSX.Element => {
           <div className="h-24 w-24 mb-5">
             <Image
               className="rounded-full"
-              src={
-                user?.picture ??
-                ("/images/placeholders/generic_placeholder.png" as any)
-              }
+              src={user?.picture ?? GenericPlaceholderImage}
               alt="User profile icon"
               width={96}
               height={96}

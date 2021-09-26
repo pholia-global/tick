@@ -3,7 +3,7 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 // Context
 import { useAppContext } from "src/context/state";
 
-const NavigationItems = () => {
+const NavigationItems = (): JSX.Element => {
   const { activeProject } = useAppContext();
 
   return (

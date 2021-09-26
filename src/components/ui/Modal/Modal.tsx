@@ -1,12 +1,12 @@
 import Backdrop from "../Backdrop/Backdrop";
 //Types
 type ModalProps = {
-  children: any;
+  children: JSX.Element;
   isOpen: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 };
 
-const Modal = ({ children, isOpen, onClose }: ModalProps) => {
+const Modal = ({ children, isOpen, onClose }: ModalProps): JSX.Element => {
   return (
     <div
       className={`${

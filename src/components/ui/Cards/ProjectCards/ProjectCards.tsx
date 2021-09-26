@@ -24,7 +24,7 @@ type ProjectCardProps = {
   status: number;
 };
 
-const ProjectCards = () => {
+const ProjectCards = (): JSX.Element => {
   const { loading, error, data } = useQuery(GET_PROJECTS);
 
   if (error) {

@@ -11,7 +11,11 @@ type NavigationItemProps = {
   text: string;
 };
 
-const NavigationItem = ({ icon, target, text }: NavigationItemProps) => {
+const NavigationItem = ({
+  icon,
+  target,
+  text,
+}: NavigationItemProps): JSX.Element => {
   const router = useRouter();
 
   const isActive = router.pathname === target.pathname;

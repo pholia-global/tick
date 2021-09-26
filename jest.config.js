@@ -9,6 +9,7 @@ module.exports = {
     "\\.(scss|sass|css)$": "identity-obj-proxy",
     "^@/components/(.*)$": ["<rootDir>/src/components/$1"],
     "^@/context/(.*)$": ["<rootDir>/src/context/$1"],
+    "^@/images/(.*)$": ["<rootDir>/public/images/$1"],
   },
   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   moduleDirectories: ["node_modules", "src", "<rootDir>"],

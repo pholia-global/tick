@@ -8,7 +8,7 @@ type SpinnerProps = {
   size: SPINNER_SIZE;
 };
 
-const Spinner = ({ size }: SpinnerProps) => {
+const Spinner = ({ size }: SpinnerProps): JSX.Element => {
   return (
     <div className=" flex justify-center items-center">
       <div

@@ -21,7 +21,7 @@ const ButtonDropDown = ({
   optionsClassName,
   optionsContainerClassName,
   callback,
-}: ButtonDropDownType) => {
+}: ButtonDropDownType): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -52,24 +52,6 @@ const ButtonDropDown = ({
             </button>
           );
         })}
-        {/* <select 
-                    name={name} 
-                    id={name} 
-                    onChange={(event) => callback(event.target.value as string)}
-                    className={optionsContainerClassName ?? ""}>
-                    {
-                        options.map((option, index) => {
-                            return(
-                                <option 
-                                    key={index} 
-                                    value={option.value}
-                                    className={optionsClassName ?? ""}>
-                                        {option.label}
-                                </option>
-                            )
-                        })
-                    }
-                </select> */}
       </div>
     </div>
   );

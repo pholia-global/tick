@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0";
+// Images
+import GenericPlaceholderImage from "@/images/placeholders/generic_placeholder.png";
 
-const Avatar = () => {
+const Avatar = (): JSX.Element => {
   const { user } = useUser();
 
   return (
@@ -9,10 +11,7 @@ const Avatar = () => {
       <div className="h-24 w-24 mb-5 rounded-full shadow-sm">
         <Image
           className="rounded-full"
-          src={
-            user?.picture ??
-            ("/images/placeholders/generic_placeholder.png" as any)
-          }
+          src={user?.picture ?? GenericPlaceholderImage}
           alt="User profile icon"
           width={96}
           height={96}

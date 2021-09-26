@@ -1,6 +1,9 @@
 import Image from "next/image";
+// Components
+import AddStackDialog from "@/components/ui/Dialog/AddStackDialog/AddStackDialog";
 
 type StackType = {
+  id: string;
   name: string;
   image_svg_url: string;
   type: string;
@@ -9,16 +12,16 @@ type StackType = {
 type TechStackProps = {
   frontendStack: StackType[];
   backendStack: StackType[];
-  addFrontend: () => void;
-  addBackend: () => void;
+  project: string;
+  update: () => void;
 };
 
 const TechStack = ({
   frontendStack,
   backendStack,
-  addFrontend,
-  addBackend,
-}: TechStackProps) => {
+  project,
+  update,
+}: TechStackProps): JSX.Element => {
   return (
     <div className="bg-white rounded p-7">
       <div className="font-black text-2xl mb-4">Technology Stack</div>
@@ -40,20 +43,12 @@ const TechStack = ({
               </div>
             );
           })}
-          <div className="flex flex-col items-center mr-3">
-            <button
-              onClick={addFrontend}
-              className="flex items-center mb-1 p-4 rounded-full border border-theme_eagle"
-            >
-              <Image
-                src="/images/icons/add_item.png"
-                alt={`Add tech icon`}
-                height={24}
-                width={24}
-              />
-            </button>
-            <div className="font-light">Add</div>
-          </div>
+          <AddStackDialog
+            type="frontend"
+            stack={frontendStack}
+            project={project}
+            update={update}
+          />
         </div>
       </div>
       <div>
@@ -74,20 +69,12 @@ const TechStack = ({
               </div>
             );
           })}
-          <div className="flex flex-col items-center mr-3">
-            <button
-              onClick={addBackend}
-              className="flex items-center mb-1 p-4 rounded-full border border-theme_eagle"
-            >
-              <Image
-                src="/images/icons/add_item.png"
-                alt={`Add tech icon`}
-                height={24}
-                width={24}
-              />
-            </button>
-            <div className="font-light">Add</div>
-          </div>
+          <AddStackDialog
+            type="backend"
+            stack={backendStack}
+            project={project}
+            update={update}
+          />
         </div>
       </div>
     </div>

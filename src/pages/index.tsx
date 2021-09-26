@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 // Components
 import Spinner from "@/components/ui/Spinner/Spinner";
+// Images
+import TextureImage from "@/images/patterns/coral_texture.svg";
 
 export default function Home(): JSX.Element {
   const [status, setStatus] = useState(0 as number);
@@ -40,7 +42,7 @@ export default function Home(): JSX.Element {
         <div className="h-96 md:h-full md:w-2/4">
           <div className="home-background-image">
             <Image
-              src={"/images/patterns/coral_texture.svg" as any}
+              src={TextureImage}
               alt="Blue and green background pattern"
               layout="fill"
               objectFit="cover"

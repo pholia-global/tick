@@ -1,9 +1,9 @@
 // Types
 type BackdropType = {
-  onClick: any;
+  onClick: () => void;
 };
 
-const Backdrop = ({ onClick }: BackdropType) => {
+const Backdrop = ({ onClick }: BackdropType): JSX.Element => {
   return (
     <button
       onClick={onClick}

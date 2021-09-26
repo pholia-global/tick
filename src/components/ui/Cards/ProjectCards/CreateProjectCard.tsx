@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const CreateProjectCard = () => {
+const CreateProjectCard = (): JSX.Element => {
   return (
     <Link href="/projects/new">
       <a>

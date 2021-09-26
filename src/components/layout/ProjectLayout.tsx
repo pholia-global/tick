@@ -7,11 +7,14 @@ import Sidebar from "./Sidebar/Sidebar";
 import { useAppContext } from "src/context/state";
 
 type ProjectLayoutProps = {
-  children: any;
+  children: JSX.Element | JSX.Element[];
   title: string;
 };
 
-const ProjectLayout = ({ children, title }: ProjectLayoutProps) => {
+const ProjectLayout = ({
+  children,
+  title,
+}: ProjectLayoutProps): JSX.Element => {
   const { activeProject, setActiveProject } = useAppContext();
 
   const router = useRouter();

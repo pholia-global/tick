@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 type Props = {
-  children: any;
+  children: JSX.Element | JSX.Element[];
   delegated?: any;
 };
 

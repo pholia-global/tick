@@ -1,6 +1,5 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
-import { useEffect } from "react";
 // Components
 import Spinner from "../../Spinner/Spinner";
 import toast from "react-hot-toast";
@@ -69,7 +68,7 @@ const AddStackModal = ({
   project,
   isModalOpen,
   onClose,
-}: AddStackModalProps) => {
+}: AddStackModalProps): JSX.Element => {
   const [state, dispatch] = useReducer(ArrayReducer, {
     dataList: [] as StackType[],
   });

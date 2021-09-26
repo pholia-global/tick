@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Head from "next/head";
 import router from "next/router";

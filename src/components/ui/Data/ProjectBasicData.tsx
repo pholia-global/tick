@@ -25,7 +25,7 @@ const ProjectBasicData = ({
   name,
   status,
   description,
-}: ProjectBasicDataProps) => {
+}: ProjectBasicDataProps): JSX.Element => {
   const [pStatus, setPStatus] = useState(status);
 
   const [updateStatus] = useMutation(UPDATE_STATUS);

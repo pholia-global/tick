@@ -1,7 +1,7 @@
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout";
 
-const Stages = () => {
+const Stages = (): JSX.Element => {
   return (
     <div>
       <ProjectLayout title="Features">
