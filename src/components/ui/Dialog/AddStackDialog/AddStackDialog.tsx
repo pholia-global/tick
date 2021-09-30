@@ -73,7 +73,7 @@ function AddStackDialog({
     dataList: [] as StackType[],
   });
 
-  const { loading, data } = useQuery(GET_STACKS, {
+  const { loading, data, error } = useQuery(GET_STACKS, {
     variables: { type: type },
   });
 
@@ -143,20 +143,17 @@ function AddStackDialog({
 
   return (
     <>
-      <div className="flex flex-col items-center mr-3">
-        <button
-          onClick={openModal}
-          className="flex items-center mb-1 p-4 rounded-full border border-theme_eagle"
-        >
+      <button onClick={openModal} className="flex flex-col items-center mr-3">
+        <div className="flex items-center mb-1 p-4 rounded-full border border-theme_eagle">
           <Image
             src="/images/icons/add_item.png"
             alt={`Add tech icon`}
             height={24}
             width={24}
           />
-        </button>
-        <div className="font-light">Add</div>
-      </div>
+        </div>
+        Add
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -168,11 +165,7 @@ function AddStackDialog({
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
-              // enterFrom="opacity-100"
-              // enterTo="opacity-30"
               leave="ease-in duration-200"
-              // leaveFrom="opacity-30"
-              // leaveTo="opacity-100"
             >
               <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
             </Transition.Child>

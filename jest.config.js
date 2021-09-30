@@ -10,6 +10,7 @@ module.exports = {
     "^@/components/(.*)$": ["<rootDir>/src/components/$1"],
     "^@/context/(.*)$": ["<rootDir>/src/context/$1"],
     "^@/images/(.*)$": ["<rootDir>/public/images/$1"],
+    "^@/tests/(.*)$": ["<rootDir>/src/test/$1"],
   },
   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   moduleDirectories: ["node_modules", "src", "<rootDir>"],

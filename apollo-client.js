@@ -4,6 +4,7 @@ import axios from "axios";
 
 const httpLink = createHttpLink({
   uri: "https://tick-backend.hasura.app/v1/graphql",
+  fetch: (...args) => fetch(...args),
 });
 
 async function fetchSession() {
@@ -25,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: process.env.NODE_ENV === "test" ? httpLink : authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

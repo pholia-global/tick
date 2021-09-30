@@ -25,7 +25,7 @@ const TechStack = ({
   return (
     <div className="bg-white rounded p-7">
       <div className="font-black text-2xl mb-4">Technology Stack</div>
-      <div className="flex flex-col">
+      <div className="flex flex-col" data-testid="frontend">
         <div className="text-lg mb-2">Frontend</div>
         <div className="mb-2 flex flex-wrap">
           {frontendStack.map((fStack, index) => {
@@ -51,7 +51,7 @@ const TechStack = ({
           />
         </div>
       </div>
-      <div>
+      <div data-testid="backend">
         <div className="text-lg mb-2">Backend</div>
         <div className="mb-2 flex flex-wrap">
           {backendStack.map((bStack, index) => {
