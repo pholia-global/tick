@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+// Hooks
+import { useQueryParams } from "src/hooks/useQueryParams";
+import useProjectData from "src/hooks/useProjectData";
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import Spinner from "@/components/ui/Spinner/Spinner";
 import ProjectBasicData from "@/components/ui/Data/ProjectBasicData";
 import ClientOnly from "@/components/utils/ClientOnly";
@@ -30,36 +32,6 @@ type ProjectTechnologyType = {
   technology_id: string;
   technology: Technology;
 };
-// Query
-const GET_PROJECT = gql`
-  query GetProject($id: uuid!) {
-    projects(where: { id: { _eq: $id } }) {
-      plain_id
-      name
-      status
-      tags
-      tech_stack
-      description
-      created_at
-      updated_at
-      features(limit: 5) {
-        name
-      }
-      stages(limit: 5) {
-        name
-        status
-      }
-      project_technologies {
-        technology {
-          id
-          name
-          image_svg_url
-          type
-        }
-      }
-    }
-  }
-`;
 
 const Project = (): JSX.Element => {
   // Datastore
@@ -67,18 +39,9 @@ const Project = (): JSX.Element => {
   const [backendStack, setbackendStack] = useState([] as StackType[]);
 
   const router = useRouter();
-  const { project } = router.query;
+  const project = useQueryParams();
 
-  const { data, loading, refetch } = useQuery(GET_PROJECT, {
-    variables: { id: project },
-    onError: (error) => {
-      toast.error("Redirecting...");
-      console.log(error?.message);
-      setTimeout(() => {
-        router.push("/projects");
-      }, 2000);
-    },
-  });
+  const { data, loading, refetch } = useProjectData(project as string);
 
   const updateTechStack = () => {
     refetch();
@@ -126,10 +89,10 @@ const Project = (): JSX.Element => {
                     callback={() => router.push(`/project/${project}/features`)}
                   />
                   <SummaryBox
-                    boxName="Stages"
+                    boxName="Versions"
                     infoPoints={data?.projects[0]?.stages}
                     callbackLabel="manage"
-                    callback={() => router.push(`/project/${project}/stages`)}
+                    callback={() => router.push(`/project/${project}/versions`)}
                   />
                 </div>
                 <div>

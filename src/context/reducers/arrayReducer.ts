@@ -1,5 +1,5 @@
 //Functions
-import { cloneArray } from "@/components/utils/utilFunctions";
+import { cloneArray } from "src/utils/utilFunctions";
 
 interface ActionType<T> {
   type: string;

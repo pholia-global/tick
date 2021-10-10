@@ -1,6 +1,7 @@
 import Image from "next/image";
 // Components
 import AddStackDialog from "@/components/ui/Dialog/AddStackDialog/AddStackDialog";
+import { H4 } from "@/components/ui/Typography";
 
 type StackType = {
   id: string;
@@ -24,7 +25,9 @@ const TechStack = ({
 }: TechStackProps): JSX.Element => {
   return (
     <div className="bg-white rounded p-7">
-      <div className="font-black text-2xl mb-4">Technology Stack</div>
+      <div className="mb-4">
+        <H4>Technology Stack</H4>
+      </div>
       <div className="flex flex-col" data-testid="frontend">
         <div className="text-lg mb-2">Frontend</div>
         <div className="mb-2 flex flex-wrap">

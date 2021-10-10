@@ -1,12 +1,12 @@
 import { screen } from "@testing-library/react";
 import { render } from "@/tests/utils/customRender";
+import userEvent from "@testing-library/user-event";
 import { setupServer } from "@/tests/utils/setupServer";
 import { within, waitForElementToBeRemoved } from "@testing-library/dom";
 
 import TechStack from "../TechStack";
 import { TechStackHandlers } from "../../Dialog/AddStackDialog/__mocks__/AddStackDialog";
 import "../../Dialog/AddStackDialog/__mocks__/intersectionObserverMock";
-import userEvent from "@testing-library/user-event";
 
 setupServer(TechStackHandlers);
 

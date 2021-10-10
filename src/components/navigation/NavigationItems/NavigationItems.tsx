@@ -1,10 +1,15 @@
+import { useSelector } from "@xstate/react";
 // Components
 import NavigationItem from "./NavigationItem/NavigationItem";
 // Context
 import { useAppContext } from "src/context/state";
 
 const NavigationItems = (): JSX.Element => {
-  const { activeProject } = useAppContext();
+  const AppService = useAppContext();
+  const activeProject = useSelector<any, any>(
+    AppService,
+    (state: any) => state?.context?.id
+  );
 
   return (
     <div>

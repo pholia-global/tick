@@ -18,19 +18,22 @@
     "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json|ts|tsx)\"",
     "format": "yarn prettier --write",
     "check-format": "yarn prettier --list-different",
-    "validate": "yarn check-types && yarn check-format && yarn lint && yarn test && yarn e2e:headless",
+    "validate": "yarn check-types && yarn check-format && yarn lint && yarn test && yarn build && yarn e2e:headless",
     "postinstall": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.4.5",
     "@auth0/nextjs-auth0": "^1.5.0",
     "@headlessui/react": "^1.4.1",
+    "@xstate/react": "^1.6.1",
     "axios": "^0.21.4",
+    "clsx": "^1.1.1",
     "graphql": "^15.5.1",
     "next": "^11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hot-toast": "^2.1.1"
+    "react-hot-toast": "^2.1.1",
+    "xstate": "^4.25.0"
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.1",

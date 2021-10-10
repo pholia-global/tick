@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-// Components
-import Sidebar from "./Sidebar/Sidebar";
+import { useSelector } from "@xstate/react";
 // Context
 import { useAppContext } from "src/context/state";
+// Hooks
+import { useQueryParams } from "src/hooks/useQueryParams";
+// Components
+import Head from "next/head";
+import Sidebar from "./Sidebar/Sidebar";
 
 type ProjectLayoutProps = {
   children: JSX.Element | JSX.Element[];
@@ -15,16 +17,23 @@ const ProjectLayout = ({
   children,
   title,
 }: ProjectLayoutProps): JSX.Element => {
-  const { activeProject, setActiveProject } = useAppContext();
+  const project = useQueryParams();
 
-  const router = useRouter();
-  const { project } = router.query;
+  const AppService = useAppContext();
+  const activeProject = useSelector<any, any>(
+    AppService,
+    (state: any) => state?.context?.id
+  );
+  const { send }: any = AppService;
 
   useEffect(() => {
-    if (activeProject !== project) {
-      setActiveProject(project as string);
+    if (project !== undefined && activeProject !== project) {
+      send({
+        type: "UPDATE_ID",
+        id: project,
+      });
     }
-  }, [project, activeProject, setActiveProject]);
+  }, [project, activeProject, send]);
 
   return (
     <div className="bg-theme_dawn_pink-light">

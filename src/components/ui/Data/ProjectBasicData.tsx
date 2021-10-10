@@ -1,9 +1,10 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 // Constants
-import { STATUS } from "src/constants/enums";
+import { PROJECT_STATUS as STATUS } from "src/constants/enums";
 // Components
 import ButtonDropDown from "../DropDown/ButtonDropDown";
+import { H2, H6 } from "../Typography";
 // Queries
 const UPDATE_STATUS = gql`
   mutation UpdateStatus($id: uuid!, $status: Int!) {
@@ -40,7 +41,10 @@ const ProjectBasicData = ({
   return (
     <div className="flex flex-col">
       <div className="flex items-center mb-3">
-        <div className="font-bold mr-2 text-4xl">{name}</div>
+        {/* <div className="font-bold mr-2 text-4xl">{name}</div> */}
+        <div className="mr-2">
+          <H2>{name}</H2>
+        </div>
         <div className="ml-4">
           <ButtonDropDown
             buttonLabel={
@@ -75,9 +79,7 @@ const ProjectBasicData = ({
           />
         </div>
       </div>
-      <div className={`${!description && "hidden"} font-light text-lg`}>
-        {description ?? ""}
-      </div>
+      <H6 className={`${!description && "hidden"}`}>{description ?? ""}</H6>
     </div>
   );
 };

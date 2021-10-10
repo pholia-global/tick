@@ -1,14 +1,14 @@
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout";
 
-const Stages = (): JSX.Element => {
+const Versions = (): JSX.Element => {
   return (
     <div>
       <ProjectLayout title="Features">
-        <h1>Stages Page</h1>
+        <h1>Versions Page</h1>
       </ProjectLayout>
     </div>
   );
 };
 
-export default Stages;
+export default Versions;

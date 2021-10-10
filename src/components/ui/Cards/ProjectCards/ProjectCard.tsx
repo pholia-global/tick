@@ -1,6 +1,6 @@
 import Link from "next/link";
 // Constants
-import { STATUS } from "src/constants/enums";
+import { PROJECT_STATUS as STATUS } from "src/constants/enums";
 
 type ProjectCardProps = {
   id: string;
