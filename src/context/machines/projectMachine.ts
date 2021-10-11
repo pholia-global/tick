@@ -1,28 +1,16 @@
 import { createMachine, assign } from "xstate";
+import getProjectData from "./utils/getProjectData";
 
-import { PROJECT_STATUS } from "src/constants/enums";
-
-export type ProjectContext = {
+export interface ProjectContext {
   id: string;
-  name: string;
-  status: PROJECT_STATUS;
-  description: string;
-};
+  projectData: any;
+}
 
 export type ProjectEvent =
   | {
-      type: "SET";
-      id: string;
-      name: string;
-      status: PROJECT_STATUS;
-      description: string;
-    }
-  | {
       type: "RESET";
       id: string;
-      name: string;
-      status: PROJECT_STATUS;
-      description: string;
+      projectData: any;
     }
   | {
       type: "UPDATE_ID";
@@ -31,11 +19,9 @@ export type ProjectEvent =
 
 const differentProjects = (
   context: ProjectContext,
-  event: ProjectContext
+  event: ProjectEvent
 ): boolean => {
-  return (
-    (context.id !== "" || context.id !== event.id) && event.id !== undefined
-  );
+  return context.id !== "" || context.id !== event.id;
 };
 
 const projectMachine = createMachine<ProjectContext, ProjectEvent>({
@@ -43,43 +29,45 @@ const projectMachine = createMachine<ProjectContext, ProjectEvent>({
   initial: "idle",
   context: {
     id: "",
-    name: "",
-    status: PROJECT_STATUS.INACTIVE,
-    description: "",
+    projectData: {},
   },
   states: {
     idle: {},
-    loaded: {
-      on: {
-        RESET: {
-          target: "idle",
-          actions: assign({
-            id: (_) => "",
-            name: (_) => "",
-            description: (_) => "",
-            status: (_) => PROJECT_STATUS.INACTIVE,
-          }),
+    selected: {
+      initial: "loading",
+      states: {
+        loading: {
+          invoke: {
+            id: "fetch-subreddit",
+            src: getProjectData,
+            onDone: {
+              target: "loaded",
+              actions: assign({
+                projectData: (context, event) => event.data,
+              }),
+            },
+            onError: "failed",
+          },
         },
+        loaded: {},
+        failed: {},
       },
     },
   },
   on: {
-    SET: {
-      target: "loaded",
+    UPDATE_ID: {
+      target: "selected",
       cond: differentProjects,
       actions: assign((context, event) => ({
         id: event.id,
-        name: event.name,
-        description: event.description,
-        status: event.status,
       })),
     },
-    UPDATE_ID: {
-      target: "loaded",
-      cond: (context, event) => context.id !== "" || context.id !== event.id,
-      actions: assign((context, event) => ({
-        id: event.id,
-      })),
+    RESET: {
+      target: "idle",
+      actions: assign({
+        id: "",
+        projectData: {},
+      }),
     },
   },
 });

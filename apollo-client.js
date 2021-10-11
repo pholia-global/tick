@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
   return authLinkWithHeader;
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: process.env.NODE_ENV === "test" ? httpLink : authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });

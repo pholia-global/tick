@@ -7,6 +7,7 @@ import { useQueryParams } from "src/hooks/useQueryParams";
 // Components
 import Head from "next/head";
 import Sidebar from "./Sidebar/Sidebar";
+import { Toaster } from "react-hot-toast";
 
 type ProjectLayoutProps = {
   children: JSX.Element | JSX.Element[];
@@ -42,6 +43,7 @@ const ProjectLayout = ({
         <meta name="description" content="Projects on tick" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="flex flex-col md:grid md:grid-cols-sidebar-15">
         <Sidebar />
         <div>{children}</div>
