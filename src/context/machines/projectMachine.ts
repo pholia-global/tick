@@ -38,7 +38,7 @@ const projectMachine = createMachine<ProjectContext, ProjectEvent>({
       states: {
         loading: {
           invoke: {
-            id: "fetch-subreddit",
+            id: "fetch-project-data",
             src: getProjectData,
             onDone: {
               target: "loaded",

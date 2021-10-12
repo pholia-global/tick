@@ -40,8 +40,7 @@ const ProjectBasicData = ({
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center mb-3">
-        {/* <div className="font-bold mr-2 text-4xl">{name}</div> */}
+      <div className="flex flex-wrap items-center mb-3">
         <div className="mr-2">
           <H2>{name}</H2>
         </div>
