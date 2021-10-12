@@ -17,6 +17,7 @@ function ButtonWithIcon({
 }: ButtonProps): JSX.Element {
   return (
     <button
+      type="button"
       className={
         className ??
         `px-2.5 py-1 flex items-center rounded border border-theme_blue ${

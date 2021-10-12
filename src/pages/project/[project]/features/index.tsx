@@ -11,10 +11,10 @@ import Spinner from "@/components/ui/Spinner/Spinner";
 import Heading from "@/components/ui/Heading/Heading";
 import FeatureList from "@/components/ui/Lists/FeatureList/FeatureList";
 import ClientOnly from "@/components/utils/ClientOnly";
-import Button from "@/components/ui/Button/Button";
 import ButtonWithIcon from "@/components/ui/Button/ButtonWithIcon";
 // Images
 import filterImage from "@/images/icons/filter-blue.png";
+import AddFeatureDialog from "@/components/ui/Dialog/AddFeatureDialog/AddFeatureDialog";
 
 const getContext = (state: any) => {
   return state?.context;
@@ -26,7 +26,7 @@ const FeaturesPage = (): JSX.Element => {
   const [listItems, setListItems] = useState([]);
 
   const project = useQueryParams();
-  const { data, loading } = useFeatureData(project);
+  const { data, loading, refetch } = useFeatureData(project);
 
   useEffect(() => {
     if (data?.projects[0]?.features) {
@@ -48,19 +48,13 @@ const FeaturesPage = (): JSX.Element => {
               <div className="flex justify-between mt-2">
                 <Heading title={"Features"} />
                 <div className="flex items-center">
-                  <Button
-                    label={"+ Add"}
-                    onClick={() => {
-                      "da";
-                    }}
-                    isHollow
-                  />
+                  <AddFeatureDialog update={refetch} />
                   <div className="w-2"></div>
                   <ButtonWithIcon
                     label={"Filter"}
                     image={filterImage}
                     onClick={() => {
-                      "da";
+                      "ta";
                     }}
                     isHollow
                   />

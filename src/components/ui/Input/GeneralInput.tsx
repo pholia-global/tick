@@ -10,7 +10,7 @@ const GeneralInput = ({
   ...props
 }: GeneralInputProps): JSX.Element => {
   return (
-    <div className="flex flex-col">
+    <div className="w-full flex flex-col">
       {labelText && (
         <label className="font-bold mb-1" htmlFor={id}>
           {labelText}

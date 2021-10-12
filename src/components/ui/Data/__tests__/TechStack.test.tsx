@@ -7,6 +7,8 @@ import { within, waitForElementToBeRemoved } from "@testing-library/dom";
 import TechStack from "../TechStack";
 import { TechStackHandlers } from "../../Dialog/AddStackDialog/__mocks__/AddStackDialog";
 import "../../Dialog/AddStackDialog/__mocks__/intersectionObserverMock";
+// Types
+import { StackType } from "../TechStack";
 
 setupServer(TechStackHandlers);
 
@@ -48,7 +50,7 @@ const frontendStack2 = [
   },
 ];
 
-const backendStack2: any = [];
+const backendStack2: StackType[] = [];
 
 /// Tests
 // 1. All received stack information through props are rendered

@@ -99,6 +99,7 @@ const NewProject = (): JSX.Element => {
               id="name"
               labelText="Name"
               type="text"
+              placeholder="Steal the moon"
               onChange={(e) => setProjectName(e.target.value)}
               required
             />
@@ -108,13 +109,18 @@ const NewProject = (): JSX.Element => {
               id="description"
               labelText="Description"
               type="text"
+              placeholder="Always been a menace"
               onChange={(e) => setProjectDescription(e.target.value)}
               required
             />
           </div>
-          <TagInput
-            onSubmit={(dataList: string[]) => setProjectTags(dataList)}
-          />
+          <div className="w-full mb-2 md:w-96">
+            <TagInput
+              labelText={"Tags"}
+              id={"tags"}
+              onSubmit={(dataList: string[]) => setProjectTags(dataList)}
+            />
+          </div>
           <input
             type="submit"
             role="submit"

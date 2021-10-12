@@ -13,6 +13,7 @@ function Button({
 }: ButtonProps): JSX.Element {
   return (
     <button
+      type="button"
       className={
         className ??
         `px-2.5 py-1 rounded border border-theme_blue ${

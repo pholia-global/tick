@@ -1,4 +1,4 @@
-const FeaturePage = () => {
+const FeaturePage = (): JSX.Element => {
   return <h1>hey</h1>;
 };
 
