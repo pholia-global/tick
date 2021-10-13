@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // Hooks
-import { useQueryParams } from "src/hooks/useQueryParams";
 import useProjectData from "src/hooks/useProjectData";
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout";
@@ -38,7 +37,7 @@ const Project = (): JSX.Element => {
   const [backendStack, setbackendStack] = useState([] as StackType[]);
 
   const router = useRouter();
-  const project = useQueryParams();
+  const { project } = router.query;
 
   const { data, loading, refetch } = useProjectData(project as string);
 

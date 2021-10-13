@@ -24,7 +24,7 @@ const FeatureListItem = ({
     <Link href={`/project/${project}/features/${id}`}>
       <a>
         <div
-          className="py-3 px-5 mb-3 flex items-center text-white bg-theme_blue border-2 border-theme_blue rounded hover:bg-white hover:text-theme_blue"
+          className="py-3 px-5 mb-3 flex items-center text-white bg-theme_blue border-2 border-theme_blue rounded transition-colors hover:bg-white hover:text-theme_blue"
           role="listitem"
         >
           <div className="w-2.5 h-2.5 mr-5 border-2 bg-white border-theme_eagle transform rotate-45"></div>

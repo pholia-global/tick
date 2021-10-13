@@ -16,9 +16,9 @@ function Button({
       type="button"
       className={
         className ??
-        `px-2.5 py-1 rounded border border-theme_blue ${
+        `px-2.5 py-1 rounded border-2 border-theme_blue ${
           isHollow ? "bg-white text-theme_blue" : "bg-theme_blue text-white"
-        }`
+        } transition-shadow hover:shadow-md`
       }
       onClick={onClick}
     >

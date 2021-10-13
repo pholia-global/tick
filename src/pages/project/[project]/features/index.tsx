@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from "src/context/state";
 import { useSelector } from "@xstate/react";
+import { useRouter } from "next/router";
 // Hooks
 import useFeatureData from "src/hooks/useFeatureData";
-import { useQueryParams } from "src/hooks/useQueryParams";
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout";
 import ProjectBasicData from "@/components/ui/Data/ProjectBasicData";
@@ -25,14 +25,17 @@ const FeaturesPage = (): JSX.Element => {
   const activeProjectData = useSelector<any, any>(AppMachine, getContext);
   const [listItems, setListItems] = useState([]);
 
-  const project = useQueryParams();
-  const { data, loading, refetch } = useFeatureData(project);
+  const router = useRouter();
+  const { project } = router.query;
+  const { data, loading, refetch } = useFeatureData(project as string);
 
   useEffect(() => {
     if (data?.projects[0]?.features) {
       setListItems(data?.projects[0]?.features);
     }
   }, [data]);
+
+  console.log(project);
 
   return (
     <div>
@@ -41,7 +44,7 @@ const FeaturesPage = (): JSX.Element => {
           <div className="p-6 w-full min-h-screen md:p-8">
             <div className="flex flex-col mb-3">
               <ProjectBasicData
-                id={project}
+                id={project as string}
                 name={activeProjectData?.projectData?.name}
                 status={activeProjectData?.projectData?.status}
               />

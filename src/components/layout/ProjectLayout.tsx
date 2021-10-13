@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useSelector } from "@xstate/react";
+import { useRouter } from "next/router";
 // Context
 import { useAppContext } from "src/context/state";
 // Hooks
-import { useQueryParams } from "src/hooks/useQueryParams";
 // Components
 import Head from "next/head";
 import Sidebar from "./Sidebar/Sidebar";
@@ -18,7 +18,8 @@ const ProjectLayout = ({
   children,
   title,
 }: ProjectLayoutProps): JSX.Element => {
-  const project = useQueryParams();
+  const router = useRouter();
+  const { project } = router.query;
 
   const AppService = useAppContext();
   const activeProject = useSelector<any, any>(
