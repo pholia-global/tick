@@ -6,6 +6,7 @@ const Task = (): JSX.Element => {
     <div>
       <ProjectLayout title="Features">
         <h1>Task Page</h1>
+        <p>YO</p>
       </ProjectLayout>
     </div>
   );

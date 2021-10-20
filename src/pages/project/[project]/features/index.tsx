@@ -35,8 +35,6 @@ const FeaturesPage = (): JSX.Element => {
     }
   }, [data]);
 
-  console.log(project);
-
   return (
     <div>
       <ClientOnly>

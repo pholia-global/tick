@@ -5,12 +5,10 @@ import { setupServer } from "@/tests/utils/setupServer";
 import { within, waitForElementToBeRemoved } from "@testing-library/dom";
 
 import TechStack from "../TechStack";
-import { TechStackHandlers } from "../../Dialog/AddStackDialog/__mocks__/AddStackDialog";
-import "../../Dialog/AddStackDialog/__mocks__/intersectionObserverMock";
 // Types
 import { StackType } from "../TechStack";
 
-setupServer(TechStackHandlers);
+setupServer();
 
 // Constants
 const frontendStack = [

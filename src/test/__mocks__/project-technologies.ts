@@ -1,4 +1,5 @@
-import { graphql, rest } from "msw";
+import { graphql } from "msw";
+import { GRAPHQL_URL } from "src/constants/urls";
 
 interface GetStackVariables {
   type: string;
@@ -29,9 +30,9 @@ interface AffectedRowsResponse {
   };
 }
 
-const hasura = graphql.link("https://tick-backend.hasura.app/v1/graphql");
+const hasura = graphql.link(GRAPHQL_URL);
 
-export const TechStackHandlers = [
+export const ProjectTechnologiesHandlers = [
   hasura.query<GetStackResponse, GetStackVariables>(
     "GetStacks",
     (req, res, ctx) => {
@@ -135,7 +136,4 @@ export const TechStackHandlers = [
       }
     }
   ),
-  rest.get("/api/session", (_req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
 ];

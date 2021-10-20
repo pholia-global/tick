@@ -11,6 +11,7 @@ module.exports = {
       "perc-20-2": "20% 1fr",
       "perc-30-2": "30% 1fr",
       "perc-50-2": "50% 1fr",
+      "tasklist-item": "60px 1fr 64px",
       "sidebar-15": "15rem 1fr",
       "fill-40": "repeat(auto-fill, 10rem)",
       "fill-50": "repeat(auto-fill, 20rem)",
