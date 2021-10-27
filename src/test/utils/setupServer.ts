@@ -10,11 +10,13 @@ import { setupServer as mswSetupServer } from "msw/node";
 import client from "../../../apollo-client";
 
 import "../__mocks__/intersectionObserverMock";
+import { ProjectHandlers } from "../__mocks__/project";
 import { ProjectTechnologiesHandlers } from "../__mocks__/project-technologies";
 import { TaskHandlers } from "../__mocks__/tasks";
 import { SessionHandlers } from "../__mocks__/session";
 
 export const server = mswSetupServer(
+  ...ProjectHandlers,
   ...ProjectTechnologiesHandlers,
   ...TaskHandlers,
   ...SessionHandlers

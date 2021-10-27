@@ -33,10 +33,10 @@ const NavigationItems = (): JSX.Element => {
         <NavigationItem
           icon="/images/icons/stages.png"
           target={{
-            pathname: "/project/[project]/stages",
+            pathname: "/project/[project]/versions",
             query: { project: activeProject },
           }}
-          text="Stages"
+          text="Versions"
         />
         <NavigationItem
           icon="/images/icons/tasks.png"

@@ -51,14 +51,16 @@ const FeaturesPage = (): JSX.Element => {
                 <div className="flex items-center">
                   <AddFeatureDialog update={refetch} />
                   <div className="w-2"></div>
-                  <ButtonWithIcon
-                    label={"Filter"}
-                    image={filterImage}
-                    onClick={() => {
-                      "ta";
-                    }}
-                    isHollow
-                  />
+                  <div>
+                    <ButtonWithIcon
+                      label={"Filter"}
+                      image={filterImage}
+                      onClick={() => {
+                        "ta";
+                      }}
+                      isHollow
+                    />
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,16 +1,10 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import Image from "next/image";
-
-interface MenuItem {
-  icon?: StaticImageData;
-  label: string;
-}
 
 interface MenuBoxProps {
   buttonComponent: JSX.Element;
-  role: string;
-  MenuItems: MenuItem[];
+  role?: string;
+  MenuItems: JSX.Element[];
 }
 
 const MenuBox = ({
@@ -37,25 +31,8 @@ const MenuBox = ({
         >
           <Menu.Items className="z-10 absolute p-1 right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             {MenuItems.map((menuItem, index) => (
-              <Menu.Item key={index}>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-theme_blue text-white" : "text-gray-900"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                  >
-                    {menuItem.icon && (
-                      <Image
-                        src={menuItem.icon}
-                        alt={menuItem.label}
-                        width={12}
-                        height={12}
-                        layout={"fixed"}
-                      />
-                    )}
-                    {menuItem.label}
-                  </button>
-                )}
+              <Menu.Item key={`${menuItem.key}-${index}`}>
+                {() => menuItem}
               </Menu.Item>
             ))}
           </Menu.Items>

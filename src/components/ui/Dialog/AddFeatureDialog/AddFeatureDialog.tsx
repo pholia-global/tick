@@ -134,6 +134,7 @@ function AddFeatureDialog({ update }: AddFeatureDialogProps): JSX.Element {
             </div>
             <div className="w-full grid grid-cols-perc-30-2 mt-2 gap-1">
               <button
+                type="button"
                 onClick={closeModal}
                 className="py-3 px-1 border-2 border-theme_blue rounded"
               >

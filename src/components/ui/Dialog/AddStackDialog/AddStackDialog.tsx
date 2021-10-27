@@ -143,7 +143,7 @@ function AddStackDialog({
 
   return (
     <>
-      <button onClick={openModal} className="flex flex-col items-center mr-3">
+      <button onClick={openModal} className="flex flex-col items-center">
         <div className="flex items-center mb-1 p-4 rounded-full border border-theme_eagle">
           <Image
             src="/images/icons/add_item.png"
@@ -187,6 +187,7 @@ function AddStackDialog({
           </div>
           <div className="grid grid-cols-perc-30-2 mt-2 gap-1">
             <button
+              type="button"
               onClick={closeModal}
               className="py-3 px-1 border-2 border-theme_blue rounded"
             >

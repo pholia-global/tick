@@ -5,14 +5,20 @@ import ArrayReducer from "@/context/reducers/arrayReducer";
 
 type TagInputProps = {
   labelText: string;
+  tagList?: string[];
   id: string;
   onSubmit: (dataList: string[]) => void;
 };
 
-const TagInput = ({ labelText, id, onSubmit }: TagInputProps): JSX.Element => {
+const TagInput = ({
+  labelText,
+  tagList,
+  id,
+  onSubmit,
+}: TagInputProps): JSX.Element => {
   const [tagBuffer, setTagBuffer] = useState("" as string);
   const [state, dispatch] = useReducer(ArrayReducer, {
-    dataList: [] as string[],
+    dataList: tagList ?? ([] as string[]),
   });
 
   useEffect(() => {

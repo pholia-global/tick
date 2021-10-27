@@ -36,7 +36,9 @@ const ProjectCards = (): JSX.Element => {
       {data ? (
         <div className="grid grid-cols-fill-50 gap-7 justify-center">
           {data.projects.map((project: ProjectCardProps, index: number) => {
-            return <ProjectCard {...project} key={index} />;
+            return (
+              <ProjectCard {...project} key={`${index}-${project?.name}`} />
+            );
           })}
           <CreateProjectCard />
         </div>

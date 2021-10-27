@@ -31,7 +31,7 @@ const FeatureList = ({ features = [] }: FeatureListProps): JSX.Element => {
           <FeatureListItem
             {...feature}
             project={activeProjectData?.id}
-            key={index}
+            key={`${index}-${feature?.name}`}
           />
         );
       })}

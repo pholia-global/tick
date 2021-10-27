@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useMachine } from "@xstate/react";
 import toggleMachine from "@/context/machines/toggleMachine";
@@ -7,14 +7,22 @@ import toast from "react-hot-toast";
 import { TASK_STATUS } from "src/constants/enums";
 // Components
 import Checkbox from "@/components/ui/Input/Checkbox/Checkbox";
-import MenuBox from "../../Menu/MenuBox";
+import PopoverBox from "../../Popover/PopoverBox";
 import Spinner from "@/components/ui/Spinner/Spinner";
+import UpdateTaskDialog from "../../Dialog/TaskDialogs/UpdateTaskDialog/UpdateTaskDialog";
+import DeleteTaskDialog from "../../Dialog/TaskDialogs/DeleteTaskDialog/DeleteTaskDialog";
+import ButtonWithIcon, { BUTTON_TYPE } from "../../Button/ButtonWithIcon";
 // Images
 import MenuIconSVG from "@/images/icons/svg/menu.svg";
+import EditIcon from "@/images/icons/svg/edit-blue.svg";
+import TrashIcon from "@/images/icons/svg/trash-red.svg";
 
 const UPDATE_TASK = gql`
-  mutation UpdateTask($id: uuid!, $status: Int) {
-    update_tasks(where: { id: { _eq: $id } }, _set: { status: $status }) {
+  mutation UpdateTask($id: uuid!, $status: Int, $updated_at: timestamptz) {
+    update_tasks(
+      where: { id: { _eq: $id } }
+      _set: { status: $status, updated_at: $updated_at }
+    ) {
       affected_rows
     }
   }
@@ -38,6 +46,8 @@ function TaskListItem({
   update,
 }: TaskListItemProps): JSX.Element {
   const [current, send] = useMachine(toggleMachine);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
 
   const [updateTask, { loading }] = useMutation(UPDATE_TASK, {
     onCompleted: () => {
@@ -67,6 +77,7 @@ function TaskListItem({
                       status === TASK_STATUS.COMPLETE
                         ? TASK_STATUS.INCOMPLETE
                         : TASK_STATUS.COMPLETE,
+                    updated_at: new Date(),
                   },
                 })
               }
@@ -94,9 +105,24 @@ function TaskListItem({
           </div>
         </button>
         <div className="mr-4 flex items-center justify-center">
-          <MenuBox
+          <UpdateTaskDialog
+            isOpenProp={isOpen}
+            update={update}
+            close={() => setIsOpen(false)}
+            id={id}
+            title={title}
+            description={description}
+            tags={tags}
+          />
+          <DeleteTaskDialog
+            isOpenProp={isOpen2}
+            update={update}
+            close={() => setIsOpen2(false)}
+            taskId={id}
+          />
+          <PopoverBox
             role="menu"
-            buttonComponent={
+            ButtonComponent={
               <div>
                 <Image
                   src={MenuIconSVG}
@@ -107,8 +133,27 @@ function TaskListItem({
                 />
               </div>
             }
-            MenuItems={[{ label: "new task" }, { label: "edit task" }]}
-          />
+          >
+            <div className="m-1">
+              <div className="mb-1">
+                <ButtonWithIcon
+                  onClick={() => setIsOpen(!isOpen)}
+                  label={"Update Task"}
+                  image={EditIcon}
+                  isHollow
+                />
+              </div>
+              <div>
+                <ButtonWithIcon
+                  type={BUTTON_TYPE.DANGER}
+                  onClick={() => setIsOpen2(!isOpen2)}
+                  label={"Delete Task"}
+                  image={TrashIcon}
+                  isHollow
+                />
+              </div>
+            </div>
+          </PopoverBox>
         </div>
       </div>
       {current.matches("active") && (
