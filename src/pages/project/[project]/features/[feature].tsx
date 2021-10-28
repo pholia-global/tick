@@ -69,7 +69,7 @@ const FeaturePage = (): JSX.Element => {
             </div>
           </div>
           <div className="mt-6">
-            <div className="flex">
+            <div className="flex mb-2">
               <Heading title={"Tasks"} />
             </div>
             {loading ? (
@@ -77,7 +77,11 @@ const FeaturePage = (): JSX.Element => {
                 <Spinner size={2} />
               </div>
             ) : (
-              <TaskList tasks={listItems} update={refetch} />
+              <TaskList
+                tasks={listItems}
+                update={refetch}
+                feature_id={feature as string}
+              />
             )}
           </div>
         </div>

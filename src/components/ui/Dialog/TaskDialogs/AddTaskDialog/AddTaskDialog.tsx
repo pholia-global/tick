@@ -63,7 +63,10 @@ function AddTaskDialog({
   }
 
   const [confirmTask] = useMutation(INSERT_TASK, {
-    onCompleted: () => closeModal(),
+    onCompleted: () => {
+      setTaskDescription("");
+      closeModal();
+    },
   });
 
   const handleTaskConfirm = (e: FormEvent) => {

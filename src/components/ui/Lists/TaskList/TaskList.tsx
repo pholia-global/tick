@@ -18,9 +18,16 @@ type TaskListItemProps = {
 type TaskListProps = {
   tasks: TaskListItemProps[];
   update: () => void;
+  feature_id?: string;
+  version_id?: string;
 };
 
-const TaskList = ({ update, tasks = [] }: TaskListProps): JSX.Element => {
+const TaskList = ({
+  feature_id,
+  version_id,
+  update,
+  tasks = [],
+}: TaskListProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -29,6 +36,8 @@ const TaskList = ({ update, tasks = [] }: TaskListProps): JSX.Element => {
         isOpenProp={isOpen}
         update={update}
         close={() => setIsOpen(false)}
+        version_id={version_id ?? undefined}
+        feature_id={feature_id ?? undefined}
       />
       {tasks.map((task, index) => {
         return (

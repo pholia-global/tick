@@ -21,7 +21,7 @@ const props1 = {
 const props2 = {
   id: "123",
   title: "Steal da moon 2",
-  description: "",
+  description: undefined,
   tags: [],
   status: 2,
   update: () => {
@@ -44,5 +44,8 @@ test("Task information is displayed correctly", () => {
   userEvent.click(taskMenu);
   screen.findByText(/edit task/i);
   rerender(<TaskListItem {...props2} />);
+  const taskInfo2 = screen.getByText(props2.title);
+  userEvent.click(taskInfo2);
+  expect(screen.queryByRole(/contentinfo/i)).not.toBeInTheDocument();
   expect(screen.queryByTestId(/checkbox-check-img/i)).toBeInTheDocument();
 });

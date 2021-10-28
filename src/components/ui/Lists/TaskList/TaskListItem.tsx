@@ -86,7 +86,7 @@ function TaskListItem({
         </div>
         <button
           className="flex flex-col sm:flex-row sm:items-center"
-          onClick={() => send("TOGGLE")}
+          onClick={() => description && send("TOGGLE")}
         >
           <div className="ml-1 mb-1 text-left text-lg sm:mb-0 sm:ml-0 ">
             {title}
@@ -158,6 +158,7 @@ function TaskListItem({
       </div>
       {current.matches("active") && (
         <div
+          role={"contentinfo"}
           className={`-mt-1 px-5 py-3 bg-white border border-t-0 border-dashed border-theme_eagle`}
         >
           {description}
