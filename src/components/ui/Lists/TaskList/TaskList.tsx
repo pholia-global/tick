@@ -12,7 +12,6 @@ type TaskListItemProps = {
   description?: string;
   tags?: string[];
   status: TASK_STATUS;
-  update: () => void;
 };
 
 type TaskListProps = {

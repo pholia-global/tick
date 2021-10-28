@@ -6,10 +6,10 @@ import { useSelector } from "@xstate/react";
 import { useAppContext } from "src/context/state";
 // Components
 import toast from "react-hot-toast";
-import Button from "../../Button/Button";
-import GeneralInput from "../../Input/GeneralInput";
-import TagInput from "../../Input/TagInput";
-import DialogBox from "../Dialog";
+import Button from "../../../Button/Button";
+import GeneralInput from "../../../Input/GeneralInput";
+import TagInput from "../../../Input/TagInput";
+import DialogBox from "../../Dialog";
 // Types
 interface AddFeatureDialogProps {
   update: () => void;

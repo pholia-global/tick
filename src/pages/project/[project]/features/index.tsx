@@ -14,7 +14,7 @@ import ClientOnly from "@/components/utils/ClientOnly";
 import ButtonWithIcon from "@/components/ui/Button/ButtonWithIcon";
 // Images
 import filterImage from "@/images/icons/filter-blue.png";
-import AddFeatureDialog from "@/components/ui/Dialog/AddFeatureDialog/AddFeatureDialog";
+import AddFeatureDialog from "@/components/ui/Dialog/FeatureDialogs/AddFeatureDialog/AddFeatureDialog";
 
 const getContext = (state: any) => {
   return state?.context;
