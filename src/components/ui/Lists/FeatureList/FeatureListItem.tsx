@@ -24,14 +24,19 @@ const FeatureListItem = ({
     <Link href={`/project/${project}/features/${id}`}>
       <a>
         <div
-          className="py-4 px-5 flex bg-theme-blue border-2 border-theme-blue rounded hover:bg-white"
+          className="py-3 px-5 mb-3 flex items-center text-white bg-theme_blue border-2 border-theme_blue rounded transition-colors hover:bg-white hover:text-theme_blue"
           role="listitem"
         >
-          <div className="w-2.5 h-2.5 border-2 border-theme-eagle rotate-45"></div>
-          <div className="flex flex-wrap">
-            <div>{name}</div>
+          <div className="w-2.5 h-2.5 mr-5 border-2 bg-white border-theme_eagle transform rotate-45"></div>
+          <div className="flex flex-wrap items-center">
+            <div className="text-lg mr-2">{name}</div>
             {tags.map((tag, index) => (
-              <div key={index}>{tag}</div>
+              <div
+                className="mx-1 px-2 py-1 text-sm text-white rounded bg-theme_green"
+                key={index}
+              >
+                {tag}
+              </div>
             ))}
           </div>
           {status === FEATURE_STATUS.COMPLETE && (

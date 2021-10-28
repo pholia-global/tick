@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // Hooks
-import { useQueryParams } from "src/hooks/useQueryParams";
 import useProjectData from "src/hooks/useProjectData";
 // Components
 import ProjectLayout from "@/components/layout/ProjectLayout";
-import { Toaster } from "react-hot-toast";
 import Spinner from "@/components/ui/Spinner/Spinner";
 import ProjectBasicData from "@/components/ui/Data/ProjectBasicData";
 import ClientOnly from "@/components/utils/ClientOnly";
@@ -39,7 +37,7 @@ const Project = (): JSX.Element => {
   const [backendStack, setbackendStack] = useState([] as StackType[]);
 
   const router = useRouter();
-  const project = useQueryParams();
+  const { project } = router.query;
 
   const { data, loading, refetch } = useProjectData(project as string);
 
@@ -68,7 +66,6 @@ const Project = (): JSX.Element => {
   return (
     <div>
       <ClientOnly>
-        <Toaster position="bottom-right" reverseOrder={false} />
         <ProjectLayout title={data?.projects[0]?.name ?? "Project"}>
           <div className="p-6 w-full min-h-screen md:p-8">
             {data ? (

@@ -3,7 +3,7 @@ import Image from "next/image";
 import AddStackDialog from "@/components/ui/Dialog/AddStackDialog/AddStackDialog";
 import { H4 } from "@/components/ui/Typography";
 
-type StackType = {
+export type StackType = {
   id: string;
   name: string;
   image_svg_url: string;

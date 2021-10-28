@@ -6,7 +6,6 @@ export enum PROJECT_STATUS {
 
 export enum FEATURE_STATUS {
   INCOMPLETE = 1,
-  IN_PROGRESS,
   COMPLETE,
 }
 

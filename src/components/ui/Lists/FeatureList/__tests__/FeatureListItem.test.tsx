@@ -1,7 +1,6 @@
 import { screen } from "@testing-library/react";
 import { render } from "@/tests/utils/customRender";
-import userEvent from "@testing-library/user-event";
-// Constans
+// Constants
 import { FEATURE_STATUS as STATUS } from "src/constants/enums";
 // Component
 import FeatureListItem from "@/components/ui/Lists/FeatureList/FeatureListItem";

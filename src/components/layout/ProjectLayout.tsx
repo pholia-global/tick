@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useSelector } from "@xstate/react";
+import { useRouter } from "next/router";
 // Context
 import { useAppContext } from "src/context/state";
 // Hooks
-import { useQueryParams } from "src/hooks/useQueryParams";
 // Components
 import Head from "next/head";
 import Sidebar from "./Sidebar/Sidebar";
+import { Toaster } from "react-hot-toast";
 
 type ProjectLayoutProps = {
   children: JSX.Element | JSX.Element[];
@@ -17,7 +18,8 @@ const ProjectLayout = ({
   children,
   title,
 }: ProjectLayoutProps): JSX.Element => {
-  const project = useQueryParams();
+  const router = useRouter();
+  const { project } = router.query;
 
   const AppService = useAppContext();
   const activeProject = useSelector<any, any>(
@@ -42,6 +44,7 @@ const ProjectLayout = ({
         <meta name="description" content="Projects on tick" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="flex flex-col md:grid md:grid-cols-sidebar-15">
         <Sidebar />
         <div>{children}</div>

@@ -1,10 +1,7 @@
 // Hook to retrieve project information from DB
-import { useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-// Context
-import { useAppContext } from "src/context/state";
 // Query
 const GET_PROJECT = gql`
   query GetProject($id: uuid!) {
@@ -40,9 +37,6 @@ const GET_PROJECT = gql`
 function useProjectData(project_id: string): any {
   const router = useRouter();
 
-  const AppMachine = useAppContext();
-  const { send, state }: any = AppMachine;
-
   const { data, loading, error, refetch } = useQuery(GET_PROJECT, {
     variables: { id: project_id },
     onError: (error) => {
@@ -53,18 +47,6 @@ function useProjectData(project_id: string): any {
       }, 2000);
     },
   });
-
-  useEffect(() => {
-    if (state?.context?.id !== data?.projects[0]?.id) {
-      send({
-        type: "SET",
-        id: data?.projects[0]?.id,
-        name: data?.projects[0]?.name,
-        status: data?.projects[0]?.status,
-        description: data?.projects[0]?.description,
-      });
-    }
-  }, [data, send, state]);
 
   return { data, loading, error, refetch };
 }

@@ -21,9 +21,11 @@ afterEach(() => {
 const onSubmit = jest.fn(() => null);
 
 function renderTagInput() {
-  const tagInput = render(<TagInput onSubmit={onSubmit} />);
+  const tagInput = render(
+    <TagInput labelText="Tags" id="tags" onSubmit={onSubmit} />
+  );
 
-  const inputBox = screen.getByPlaceholderText(/tags/i) as HTMLInputElement;
+  const inputBox = screen.getByLabelText(/tags/i) as HTMLInputElement;
 
   return {
     ...tagInput,

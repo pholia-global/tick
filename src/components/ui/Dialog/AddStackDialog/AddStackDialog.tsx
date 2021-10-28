@@ -1,10 +1,10 @@
-import { useState, Fragment, useReducer, useEffect } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { useState, useReducer, useEffect } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import Image from "next/image";
 // Components
 import Spinner from "../../Spinner/Spinner";
 import toast from "react-hot-toast";
+import DialogBox from "../Dialog";
 // Reducers
 import ArrayReducer from "src/context/reducers/arrayReducer";
 // Types
@@ -73,7 +73,7 @@ function AddStackDialog({
     dataList: [] as StackType[],
   });
 
-  const { loading, data, error } = useQuery(GET_STACKS, {
+  const { loading, data } = useQuery(GET_STACKS, {
     variables: { type: type },
   });
 
@@ -119,7 +119,7 @@ function AddStackDialog({
       })
         .then(() => {
           if (state?.dataList) {
-            const newList = state.dataList.map((tech: any, index: number) => {
+            const newList = state.dataList.map((tech: any) => {
               return {
                 project_id: project,
                 technology_id: tech.id,
@@ -143,7 +143,7 @@ function AddStackDialog({
 
   return (
     <>
-      <button onClick={openModal} className="flex flex-col items-center mr-3">
+      <button onClick={openModal} className="flex flex-col items-center">
         <div className="flex items-center mb-1 p-4 rounded-full border border-theme_eagle">
           <Image
             src="/images/icons/add_item.png"
@@ -155,86 +155,53 @@ function AddStackDialog({
         Add
       </button>
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              leave="ease-in duration-200"
-            >
-              <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-            </Transition.Child>
-
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded">
-                <Dialog.Title as="div" className="font-bold text-lg mb-2">
-                  Select Technologies
-                </Dialog.Title>
-                <div className="flex flex-col max-h-96 overflow-y-auto">
-                  {loading ? (
-                    <div className="mt-2">
-                      <Spinner size={1} />
-                    </div>
-                  ) : (
-                    data?.technologies?.map(
-                      (tech: StackType, index: number) => {
-                        const isInList = isInStack(tech) !== -1;
-                        return (
-                          <button
-                            onClick={() => handleClick(tech)}
-                            className={`${
-                              isInList
-                                ? "border-2 border-theme_green"
-                                : "border border-black-fifteen_op"
-                            } flex justify-between py-2 px-3 mb-1 rounded`}
-                            key={index}
-                          >
-                            {tech.name}
-                          </button>
-                        );
-                      }
-                    )
-                  )}
-                </div>
-                <div className="grid grid-cols-perc-30-2 mt-2 gap-1">
-                  <button
-                    onClick={closeModal}
-                    className="py-3 px-1 border-2 border-theme_blue rounded"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleStackConfirm}
-                    className="py-3 bg-theme_blue text-white rounded"
-                  >
-                    Confirm
-                  </button>
-                </div>
+      <DialogBox
+        title={"Select Technologies"}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      >
+        <div className="flex flex-col">
+          <div className="flex flex-col max-h-96 overflow-y-auto">
+            {loading ? (
+              <div className="mt-2">
+                <Spinner size={1} />
               </div>
-            </Transition.Child>
+            ) : (
+              data?.technologies?.map((tech: StackType, index: number) => {
+                const isInList = isInStack(tech) !== -1;
+                return (
+                  <button
+                    onClick={() => handleClick(tech)}
+                    className={`${
+                      isInList
+                        ? "border-2 border-theme_green"
+                        : "border border-black-fifteen_op"
+                    } flex justify-between py-2 px-3 mb-1 rounded`}
+                    key={index}
+                  >
+                    {tech.name}
+                  </button>
+                );
+              })
+            )}
           </div>
-        </Dialog>
-      </Transition>
+          <div className="grid grid-cols-perc-30-2 mt-2 gap-1">
+            <button
+              type="button"
+              onClick={closeModal}
+              className="py-3 px-1 border-2 border-theme_blue rounded"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleStackConfirm}
+              className="py-3 bg-theme_blue text-white rounded"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </DialogBox>
     </>
   );
 }

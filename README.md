@@ -11,8 +11,7 @@ Task Status Types:
 
 Feature Status Types:
 1: Incomplete
-2: In Progress
-3: Complete
+2: Complete
 
 ## Attributions
 

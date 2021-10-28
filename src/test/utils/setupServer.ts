@@ -1,22 +1,32 @@
 import "whatwg-fetch";
-import {
-  GraphQLHandler,
-  GraphQLRequest,
-  RestHandler,
-  MockedRequest,
-  DefaultRequestBody,
-} from "msw";
+// import {
+//   GraphQLHandler,
+//   GraphQLRequest,
+//   RestHandler,
+//   MockedRequest,
+//   DefaultRequestBody,
+// } from "msw";
 import { setupServer as mswSetupServer } from "msw/node";
 import client from "../../../apollo-client";
 
-export const setupServer = (
-  handlers: (
-    | GraphQLHandler<GraphQLRequest<any>>
-    | RestHandler<MockedRequest<DefaultRequestBody>>
-  )[]
-): void => {
-  const server = mswSetupServer(...handlers);
+import "../__mocks__/intersectionObserverMock";
+import { ProjectHandlers } from "../__mocks__/project";
+import { ProjectTechnologiesHandlers } from "../__mocks__/project-technologies";
+import { TaskHandlers } from "../__mocks__/tasks";
+import { SessionHandlers } from "../__mocks__/session";
 
+export const server = mswSetupServer(
+  ...ProjectHandlers,
+  ...ProjectTechnologiesHandlers,
+  ...TaskHandlers,
+  ...SessionHandlers
+);
+
+export const setupServer = (): // handlers: (
+//   | GraphQLHandler<GraphQLRequest<any>>
+//   | RestHandler<MockedRequest<DefaultRequestBody>>
+// )[]
+void => {
   beforeAll(() =>
     server.listen({
       onUnhandledRequest: "warn",

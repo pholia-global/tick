@@ -4,24 +4,34 @@ import toast from "react-hot-toast";
 import ArrayReducer from "@/context/reducers/arrayReducer";
 
 type TagInputProps = {
+  labelText: string;
+  tagList?: string[];
+  id: string;
   onSubmit: (dataList: string[]) => void;
 };
 
-const TagInput = ({ onSubmit }: TagInputProps): JSX.Element => {
+const TagInput = ({
+  labelText,
+  tagList,
+  id,
+  onSubmit,
+}: TagInputProps): JSX.Element => {
   const [tagBuffer, setTagBuffer] = useState("" as string);
   const [state, dispatch] = useReducer(ArrayReducer, {
-    dataList: [] as string[],
+    dataList: tagList ?? ([] as string[]),
   });
-
-  // const submitDataList = (): void => onSubmit(state?.dataList as string[]);
-  // const submitDataList = (): void => console.log(state?.dataList);
 
   useEffect(() => {
     onSubmit(state?.dataList as string[]);
   }, [state, onSubmit]);
 
   return (
-    <div className="flex flex-col w-full bg-white-900 rounded-md mb-4 md:w-96">
+    <div className="flex flex-col w-full bg-white-900 rounded-md">
+      {labelText && (
+        <label className="font-bold mb-1" htmlFor={id}>
+          {labelText}
+        </label>
+      )}
       <div className="flex flex-wrap">
         {state.dataList.map((tag: unknown, index: number) => {
           return (
@@ -39,9 +49,10 @@ const TagInput = ({ onSubmit }: TagInputProps): JSX.Element => {
         })}
       </div>
       <input
+        id={id}
         className="w-full h-full p-3 rounded-md border border-theme_dawn_pink bg-transparent"
         type="text"
-        placeholder="tags"
+        placeholder="Type in tag and press Enter"
         value={tagBuffer}
         onKeyPress={(event) => {
           if (event.key === "Enter") {
@@ -54,7 +65,6 @@ const TagInput = ({ onSubmit }: TagInputProps): JSX.Element => {
             }
           }
         }}
-        // onBlur={submitDataList}
         onChange={(e) => {
           setTagBuffer(e.target.value);
         }}
