@@ -1,17 +1,21 @@
-## Types
+## Screenshots
+Home page:
+![Home page](https://i.imgur.com/jFGGKYK.jpg)
 
-Project Status types:
-1: Active
-2: Inactive
-3: Dead
+Adding a new project:
+![Adding a new project](https://i.imgur.com/ytiIADb.gif)
 
-Task Status Types:
-1: Incomplete
-2: Complete
+Adding and editing the technology stack
+![Adding and editing the technology stack](https://i.imgur.com/dwWOGqo.gif)
 
-Feature Status Types:
-1: Incomplete
-2: Complete
+Project features:
+![Project features](https://i.imgur.com/Qg0h96O.gif)
+
+Editing feature:
+![Editing feature](https://i.imgur.com/rGH3tk2.gif)
+
+Adding tasks:
+![Adding tasks](https://i.imgur.com/eUWZvbC.gif)
 
 ## Attributions
 
